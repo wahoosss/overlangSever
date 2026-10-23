@@ -1,0 +1,8 @@
+# app-ads.txt —— Google AdMob 变现校验文件
+# 部署后必须能通过 https://overlang.xyz/app-ads.txt 直接访问（纯文本、HTTPS、无跳转）。
+# ⚠️ 上线前必须把下面的 pub-0000000000000000 换成你 AdMob 账号里的真实发布商 ID：
+#    AdMob 控制台 → 设置 → 账号信息 → “发布商 ID”（形如 pub-1234567890123456，16 位数字）。
+#    pub-0000000000000000 是 Google 的示例/测试值，Play 审核与真实变现都不认。
+# 若还接入了其它广告网络（如 Meta/AppLovin 等），按各自规范再各加一行，格式：
+#    <域名>, <publisher-id>, <DIRECT|RESELLER>[, <认证机构id>]
+google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
