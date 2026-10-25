@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <!--
-  隐私政策 + 用户协议合并文书：随包内置，作为离线回落件；LegalActivity 远端优先加载
-  Settings.privacyPolicyBaseUrl（https://site.overlang.xyz/，与 Play 后台同一条），失败才回落到本件（file:///android_asset）。
-  ⚠ 本件与线上站点是两份：改正文后必须同步 tools_pack/policy_site 并重新上传，否则线上/离线漂移。
+  隐私政策 + 用户协议合并文书·线上主源：本目录发布到 https://site.overlang.xyz/（Play 商店填写的 URL，Google 定期抓取核验）；
+  app/src/main/assets/legal/agreement.html 是**同版离线回落镜像**（中文）。LegalActivity 按界面语言取本目录的 index_<locale>.html
+    （白名单 en/zh/ja/ko/es/fr/de/pt-BR/ru/it/id），英文界面直接用站点根路径；出错时先退根路径（英文），仍失败才换回包内镜像。
+  ⚠ 同一文书的两份拷贝，正文改动必须两版同打（含其余 10 个语言件），不许漂移。
 
   维护约定（改正文前先读）：
   - 合规口径：本应用经 **Google Play** 分发，隐私合规以 **Google Play 政策 + GDPR（欧洲经济区/英国）** 为准；
@@ -10,19 +11,20 @@
   - 同意机制（与目标代码一致，勿改口径）：首启引导末页展示本协议并给出**默认勾选框**，用户**主动点「开始使用」= 同意**，
     取消勾选 = 拒绝。**拒绝仍展示非个性化广告**（广告请求仍向 Google 传输设备/网络/广告标识用于投放与反作弊），
     但**不启用统计**，全部本机功能照常可用。**欧洲经济区/英国用户**另经 Google 用户同意消息（UMP）单独选择，以该选择为准；
-  - ✅ 已落实（2026-10，与代码一致）：
-      ① 首启引导末页 + 默认勾选的「开始使用」同意框（GuideActivity，取消勾选 = 拒绝）；
-      ③ 统计条件出设备：`SdkBootstrap` 读 `privacyAgreed` 决定 `Analytics.init(consented=…)`，
-        App.onCreate 不再写死 consented=true；未同意时 libdata 一个字节不出设备；
-      ④ EEA/英国 UMP（ConsentGate）：只认 `ConsentStatus.OBTAINED` 才放开个性化（不用 canRequestAds 充数）；
-      ②的「拒绝→非个性化」分支：`Admob.npa = !(privacyAgreed && personalizedAllowed)` 已实现；
-      撤回/更改同意入口：协议页右上角（LegalActivity ivRight，仅 UMP REQUIRED 用户可见）。
-  - ⚠ 仍未落实（提交 Play 前必须完成，「文书说的与实际做的不一致」是政策违规）：
-      ②的广告位：仍是 Google 官方测试 id（见 `res/values/strings.xml` 的 admob_app_id / ad_unit_session_end_interstitial），
-        上架前必须整体换成 AdMob 后台真实 id（应用 id 与广告单元 id 两条一起换）；
-      统计上传缺 `google-services.json`：当前「统计没落云端」是缺该文件时 `:libdata` 报 NO_FIREBASE_APP 的巧合，
-        **不是已合规**；一旦放入配置文件就立即开始上传，届时本文「四」的 Firebase 段与 Play 数据安全表必须同步为真。
+  - ✅ 对账核销（2026-10）：原待落实清单——① 首启引导末页 + 默认勾选的「开始使用」同意框、
+    ③ 同意状态驱动 SDK（SdkBootstrap 读 privacyAgreed，未同意时统计不出设备）、
+    ④ EEA/英国 UMP（ConsentGate：进引导页即预请求同意信息，点「开始使用」且已同意才弹表单，
+    点击时仍未就绪则按失败处理→保持非个性化）——均已实现；
+    ② 的「拒绝→非个性化广告」分支（Admob.npa = 双重闸门）也已实现；
+    撤回/更改同意入口：协议页右上角（LegalActivity ivRight + ConsentGate.openPrivacyOptions，仅 privacyOptionsRequired 用户可见）。
+  - ⚠ 唯一剩余项：AdMob 仍是 Google 官方测试广告位（见 `res/values/strings.xml`），
+    且本目录 `app-ads.txt` 仍是示例发布商 id；提交前必须整体换成真实 id
+    （store/05-compliance-blockers.md 的 B2 条）。另：`google-services.json` 尚未放入（B3，发布决策点）。
+    开发期「统计没落云端」不构成依据：那是缺该文件时 `:libdata` 报 NO_FIREBASE_APP 的巧合，
+    一旦放入配置文件就立即开始上传。
     接入任何一个新的数据处理者时，先核对它的名称、收集范围与官方隐私链接是否与本文件「四」一致，再上线；
+  - 备份口径与代码绑定：`AndroidManifest` 的 `allowBackup="false"` 决定「五·设备备份」与用户协议「五」的写法，
+    改 allowBackup 必须同步改这两句；
   - 目录是纯文字、不是链接：LegalActivity 故意关掉 JavaScript，而 WebView 在关 JS 时不会响应 `#锚点`
     的同文档跳转（实测点了不滚），放个按下去没反应的导航比不放更糟；doc-title 上的 id 保留，
     将来改挂 https 并开脚本时可直接接上；
@@ -94,7 +96,7 @@
 
 <!-- ============================ 第一部分：隐私协议 ============================ -->
 <h2 class="doc-title" id="privacy">隐私协议</h2>
-<p class="meta">生效日期：2026 年 10 月 20 日｜适用产品：OverLang</p>
+<p class="meta">生效日期：2026 年 10 月 25 日｜适用产品：OverLang</p>
 
 <p>本应用把屏幕上的文字实时翻译后绘制回原位置，识别与翻译都在你的手机本机完成。它采用「免费 + 广告」的方式运营，因此会联网加载广告，
 并在你同意后上报必要的运行统计与崩溃信息。本应用通过 Google Play 分发，隐私合规遵循 Google Play 政策与欧盟《通用数据保护条例》（GDPR）。
@@ -122,7 +124,8 @@
 <p class="note">关于「非个性化广告」：请求并展示一条广告时，广告 SDK 仍会向 Google 传输设备、网络与广告标识等信息，用于广告的投递、频控、归因与反作弊；
 这些信息不会被用于构建你的兴趣画像或做个性化定向。「非个性化」限制的是广告的定向方式，而不是完全零数据。</p>
 <p>欧洲经济区（EEA）与英国用户：你会额外看到由 Google 提供的标准同意界面（User Messaging Platform，UMP）。你在该界面中的选择优先于上述勾选框，
-直接决定广告是否个性化、统计是否启用。你可随时撤回或更改该选择：在本应用的「隐私政策与用户协议」页右上角提供重开 UMP 隐私选项界面的入口。</p>
+直接决定广告是否个性化、统计是否启用。你可随时撤回或更改该选择：除该同意界面与系统设置外，本应用「隐私政策与用户协议」页右上角提供重开隐私选项界面的入口
+（仅对法规要求同意地区显示）。</p>
 
 <h2>二、我们收集哪些信息，用于什么</h2>
 
@@ -140,7 +143,7 @@
   <li>历史条数上限、是否保存原图、清除全部历史，都在「翻译历史」页右上角的设置中调整；调小上限会立即裁剪最旧的记录并删除其对应截图；</li>
   <li>这些内容<strong>不会进入广告与统计的上报链路</strong>（见 2.3、2.4），卸载应用或清除应用数据时会一并删除。</li>
 </ul>
-<p class="note">提醒：屏幕翻译会读到你屏幕上显示的一切内容，其中可能包括他人发给你的消息。历史记录与截图就这样存在你的设备上，请注意保管设备，并在分享、备份手机前检查其中内容。</p>
+<p class="note">提醒：屏幕翻译会读到你屏幕上显示的一切内容，其中可能包括他人发给你的消息。历史记录与截图就这样存在你的设备上（本应用不参与云备份，见「五」），请注意保管设备，并在共享屏幕、把设备交予他人前检查其中内容。</p>
 
 <h3>2.3 用于广告投放的信息（无论你是否同意个性化，都会发生）</h3>
 <p>为加载并投放广告、进行去重、归因与反作弊，广告 SDK（Google AdMob）会处理下列信息：</p>
@@ -192,10 +195,10 @@
   <li><strong>Google Firebase Analytics</strong>：仅在你同意后启用，收集使用与崩溃事件及部分设备信息，用于功能可用性统计与稳定性排查；拒绝时不初始化、不上传。详见 <a href="https://firebase.google.com/support/privacy">firebase.google.com/support/privacy</a>；</li>
   <li><strong>Google User Messaging Platform（UMP）</strong>：面向 EEA/英国用户展示合规同意界面，记录并传递你的同意选择供 AdMob 与 Firebase 读取；处理设备与应用基本信息、大致地区。详见 <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>；</li>
   <li><strong>Google 服务框架（Google Play services）</strong>：提供广告标识（GAID）与 ML Kit 语言包的按需下载通道，本应用经由它读取广告标识并取得翻译词典。详见 <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>；</li>
-  <li><strong>Google ML Kit（翻译、语言识别）</strong>：在你设备端做离线翻译与语种判断，模型文件下载见 2.5；</li>
+  <li><strong>Google ML Kit（翻译）</strong>：在你设备端做离线翻译，模型文件下载见 2.5；</li>
   <li><strong>ONNX Runtime</strong>：在你设备端运行文字识别模型，纯本机推理，不联网、不收集任何数据；</li>
   <li><strong>PP-OCR 检测 / 识别模型与词典</strong>：开源模型文件，仅作为本机的识别能力，随下载进入你的设备，不携带任何你的数据；</li>
-  <li><strong>Material Components、Coil、Kotlin Coroutines、OkHttp 等开源库</strong>：界面、图片加载与网络请求的本地实现，不收集数据，遵循各自的开源许可。</li>
+  <li><strong>Material Components、Kotlin Coroutines、OkHttp 等开源库</strong>：界面与网络请求的本地实现，不收集数据，遵循各自的开源许可。</li>
 </ul>
 
 <h2>五、信息的存储、共享与保护</h2>
@@ -204,7 +207,7 @@
   <li><strong>传输安全</strong>：所有网络请求使用 HTTPS；广告与统计请求不携带你的屏幕内容、原文、译文与历史记录；</li>
   <li><strong>共享范围</strong>：仅在实现广告、统计、故障排查所必需的范围内与上述第三方共享，<strong>不会出售你的个人信息</strong>；在法律要求或主管机关依法强制要求时，我们可能依法提供，并在允许范围内通知你；</li>
   <li><strong>跨境传输</strong>：Google AdMob / Firebase / UMP 可能涉及将数据传输至境外（如 Google 的全球服务器），我们以本协议与相应第三方的标准合同条款（SCC）等合规机制作为传输依据；</li>
-  <li><strong>设备备份</strong>：Android 的「应用数据备份 / 新设备传输」由你的系统设置与 Google One 处理，可能把本应用的历史数据纳入你的个人备份。这不属于本应用的数据收集，你可以在系统设置中关闭备份，或关闭「与我共享的应用数据备份」。</li>
+  <li><strong>设备备份</strong>：本应用已退出 Android 的「应用数据备份 / 新设备迁移」（autoBackup 关闭）：历史记录、截图、偏好与已下载模型不会上传到 Google One，也不会随系统「换机迁移」自动带走——应用数据只存在于本机，卸载或清除数据即删除。</li>
 </ul>
 
 <h2>六、你的控制与权利</h2>
@@ -234,7 +237,7 @@
 
 <!-- ============================ 第二部分：用户协议 ============================ -->
 <h2 class="doc-title" id="terms">用户协议</h2>
-<p class="meta">生效日期：2026 年 10 月 20 日｜适用产品：OverLang</p>
+<p class="meta">生效日期：2026 年 10 月 25 日｜适用产品：OverLang</p>
 
 <p>你在首次启动引导页作出选择并点击「开始使用」，即表示你已阅读并同意本协议；你随时可以停止使用并卸载本应用。本应用是一款在你设备上完成文字识别与翻译的屏幕翻译工具，
 以「免费 + 广告」的方式运营，需要联网才能完整提供这些能力。</p>
@@ -284,8 +287,9 @@
 
 <h2>五、设备、数据与备份</h2>
 <p>本应用依赖端侧推理，要求 Android 10（API 29）及以上；性能较低的设备可能出现明显延迟。</p>
-<p>你的翻译历史与截图只保存在本机，属于你。本应用<strong>不承担备份义务</strong>：更换设备、清除应用数据或卸载会丢失全部记录。
-需要留存时，请自行在系统层面备份设备，或对重要内容另行保存。数据的处理方式（存在哪里、如何删除、会因广告与统计上报哪些信息）见本页《隐私协议》第二、五节。</p>
+<p>你的翻译历史与截图只保存在本机，属于你。本应用<strong>不承担备份义务</strong>，并已退出 Android 的应用数据备份与新设备迁移：
+更换设备、清除应用数据或卸载会丢失全部记录，系统备份也不会代你留存。需要留存时，请自行对重要内容另作保存（如自行截图）。
+数据的处理方式（存在哪里、如何删除、会因广告与统计上报哪些信息）见本页《隐私协议》第二、五节。</p>
 
 <h2>六、知识产权</h2>
 <ul>

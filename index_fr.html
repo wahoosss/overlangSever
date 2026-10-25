@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   OverLang Politique de confidentialité et Conditions d'utilisation — Français (copie du site).
-  Traduit du document maître anglais (assets/legal/agreement.html). Les règles de maintenance faisant
+  Traduit du document principal en chinois (index_zh.html ; le miroir hors ligne assets/legal/agreement.html est lui aussi en chinois). Les règles de maintenance faisant
   autorité et la liste de contrôle de conformité ⚠ figurent dans ce fichier maître ; après toute
   modification du texte, resynchronisez tous les index_<locale>.html d'ici et remettez-les en ligne.
   Texte juridique traduit automatiquement — faites-le relire par un locuteur natif ou un juriste avant usage.
@@ -47,7 +47,7 @@
 
 <!-- ============================ Partie 1 : Politique de confidentialité ============================ -->
 <h2 class="doc-title" id="privacy">Politique de confidentialité</h2>
-<p class="meta">Date d'entrée en vigueur : 20 octobre 2026 | S'applique à : OverLang</p>
+<p class="meta">Date d'entrée en vigueur : 25 octobre 2026 | S'applique à : OverLang</p>
 
 <p>L'Application traduit le texte à l'écran en temps réel et le repeint à son emplacement d'origine ; la reconnaissance et la traduction se font toutes deux sur votre appareil. Elle fonctionne selon un modèle « gratuit + publicité », elle se connecte donc à internet pour charger des annonces
 et, avec votre consentement, transmet les statistiques d'utilisation nécessaires et les informations de plantage. L'Application est distribuée via Google Play, et sa confidentialité suit les politiques de Google Play et le Règlement général sur la protection des données (RGPD) de l'UE.
@@ -75,7 +75,7 @@ Voici d'abord un aperçu rapide, puis les détails.</p>
 <p class="note">À propos des « publicités non personnalisées » : lors de la demande et de l'affichage d'une annonce, le SDK publicitaire transmet toujours à Google des informations sur l'appareil, le réseau et l'identifiant publicitaire, pour la diffusion, la limitation de fréquence, l'attribution et la lutte contre la fraude ;
 ces informations ne servent pas à établir un profil d'intérêts ni au ciblage personnalisé. « Non personnalisé » limite la façon dont les annonces sont ciblées, et non si des données sont envoyées.</p>
 <p>Utilisateurs de l'Espace économique européen (EEE) et du Royaume-Uni : vous verrez en outre une interface de consentement standard fournie par Google (User Messaging Platform, UMP). Votre choix y prime sur la case à cocher ci-dessus
-et détermine directement si les annonces sont personnalisées et si les statistiques sont activées. Vous pouvez retirer ou modifier ce choix à tout moment : un accès pour rouvrir l'interface des options de confidentialité de l'UMP est proposé en haut à droite de la page « Politique de confidentialité et Conditions d'utilisation » de l'Application.</p>
+et détermine directement si les annonces sont personnalisées et si les statistiques sont activées. Vous pouvez retirer ou modifier ce choix à tout moment : outre cette interface de consentement et les paramètres système, la page « Politique de confidentialité et Conditions d'utilisation » de l'Application propose, en haut à droite, un accès pour rouvrir l'interface des options de confidentialité (affiché uniquement pour les utilisateurs des régions où le consentement est exigé par la loi).</p>
 
 <h2>2. Quelles informations nous collectons et à quoi elles servent</h2>
 
@@ -93,7 +93,7 @@ Après avoir autorisé l'enregistrement d'écran : les images sont lues une à u
   <li>Le nombre maximal d'entrées d'historique, l'enregistrement ou non des images originales et l'effacement de tout l'historique se règlent dans les paramètres en haut à droite de la page « Historique des traductions » ; réduire le maximum taille immédiatement les entrées les plus anciennes et supprime leurs captures ;</li>
   <li>Ce contenu <strong>n'entre jamais dans le parcours de transmission des annonces ni des statistiques</strong> (voir 2.3 et 2.4), et il est supprimé lorsque vous désinstallez l'Application ou effacez les données de l'application.</li>
 </ul>
-<p class="note">Rappel : la traduction d'écran lit tout ce qui s'affiche sur votre écran, ce qui peut inclure des messages que d'autres vous ont envoyés. Les entrées d'historique et les captures sont ainsi stockées sur votre appareil ; protégez-le donc et vérifiez ce contenu avant de partager ou de sauvegarder votre téléphone.</p>
+<p class="note">Rappel : la traduction d'écran lit tout ce qui s'affiche sur votre écran, ce qui peut inclure des messages que d'autres vous ont envoyés. Les entrées d'historique et les captures sont ainsi stockées sur votre appareil (l'Application ne participe à aucune sauvegarde dans le nuage ; voir Section 5) ; protégez-le donc et vérifiez ce contenu avant de partager votre écran ou de confier l'appareil à quelqu'un d'autre.</p>
 
 <h3>2.3 Informations utilisées pour la diffusion publicitaire (que vous acceptiez ou non la personnalisation)</h3>
 <p>Pour charger et diffuser des annonces et effectuer la déduplication, l'attribution et la lutte contre la fraude, le SDK publicitaire (Google AdMob) traite les informations suivantes :</p>
@@ -145,10 +145,10 @@ Lorsque vous refusez, Firebase n'est pas initialisé et pas un seul octet des do
   <li><strong>Google Firebase Analytics</strong> : activé seulement après votre consentement ; collecte les événements d'utilisation et de plantage et certaines informations sur l'appareil pour les statistiques de disponibilité des fonctions et le dépannage de la stabilité ; non initialisé et rien n'est téléversé quand vous refusez. Voir <a href="https://firebase.google.com/support/privacy">firebase.google.com/support/privacy</a> ;</li>
   <li><strong>Google User Messaging Platform (UMP)</strong> : affiche une interface de consentement conforme aux utilisateurs EEE/RU et enregistre et transmet votre choix de consentement pour qu'AdMob et Firebase le lisent ; traite les informations de base sur l'appareil et l'application et la région approximative. Voir <a href="https://policies.google.com/privacy">policies.google.com/privacy</a> ;</li>
   <li><strong>Cadre de services Google (services Google Play)</strong> : fournit l'identifiant publicitaire (GAID) et le canal de téléchargement à la demande des packs de langues ML Kit ; l'Application lit l'identifiant publicitaire et obtient les dictionnaires de traduction par son intermédiaire. Voir <a href="https://policies.google.com/privacy">policies.google.com/privacy</a> ;</li>
-  <li><strong>Google ML Kit (traduction, identification de langue)</strong> : effectue la traduction hors ligne et la détection de langue sur votre appareil ; les téléchargements de modèles sont décrits en 2.5 ;</li>
+  <li><strong>Google ML Kit (traduction)</strong> : effectue la traduction hors ligne sur votre appareil ; les téléchargements de modèles sont décrits en 2.5 ;</li>
   <li><strong>ONNX Runtime</strong> : exécute le modèle de reconnaissance de texte sur votre appareil — inférence purement locale, sans réseau et sans collecte de données ;</li>
   <li><strong>Modèles et dictionnaires de détection / reconnaissance PP-OCR</strong> : fichiers modèles open source servant uniquement de capacité de reconnaissance locale ; ils entrent sur votre appareil par téléchargement et n'emportent aucune de vos données ;</li>
-  <li><strong>Material Components, Coil, Kotlin Coroutines, OkHttp et autres bibliothèques open source</strong> : implémentations locales pour l'interface, le chargement d'images et les requêtes réseau ; elles ne collectent aucune donnée et suivent leurs licences open source respectives.</li>
+  <li><strong>Material Components, Kotlin Coroutines, OkHttp et autres bibliothèques open source</strong> : implémentations locales pour l'interface et les requêtes réseau ; elles ne collectent aucune donnée et suivent leurs licences open source respectives.</li>
 </ul>
 
 <h2>5. Stockage, partage et protection des informations</h2>
@@ -157,7 +157,7 @@ Lorsque vous refusez, Firebase n'est pas initialisé et pas un seul octet des do
   <li><strong>Sécurité du transfert</strong> : toutes les requêtes réseau utilisent HTTPS ; les requêtes d'annonces et de statistiques n'emportent pas votre contenu d'écran, texte original, traductions ni historique ;</li>
   <li><strong>Portée du partage</strong> : partagé avec les tiers ci-dessus uniquement dans la mesure nécessaire à la mise en œuvre des annonces, des statistiques et du dépannage, et <strong>vos informations personnelles ne sont jamais vendues</strong> ; lorsque la loi l'exige ou qu'une autorité compétente l'ordonne légalement, nous pouvons les divulguer comme la loi l'exige et vous en informer dans la mesure permise ;</li>
   <li><strong>Transferts transfrontaliers</strong> : Google AdMob / Firebase / UMP peuvent impliquer le transfert de données hors de votre pays (par ex. vers les serveurs mondiaux de Google) ; nous nous appuyons sur cet accord et sur les Clauses contractuelles types (CCT) du tiers concerné et d'autres mécanismes de conformité comme base du transfert ;</li>
-  <li><strong>Sauvegarde de l'appareil</strong> : la « sauvegarde des données d'application / transfert vers un nouvel appareil » d'Android est gérée par vos paramètres système et Google One, et peut inclure les données d'historique de l'Application dans votre sauvegarde personnelle. Il ne s'agit pas d'une collecte de données par l'Application ; vous pouvez désactiver la sauvegarde dans les paramètres système, ou désactiver « sauvegarder les données d'application partagées avec moi ».</li>
+  <li><strong>Sauvegarde de l'appareil</strong> : l'Application s'est retirée de la sauvegarde Android (« sauvegarde des données d'application / transfert vers un nouvel appareil » est désactivé pour elle, autoBackup éteint) : votre historique, vos captures, vos préférences et les modèles téléchargés ne sont jamais téléversés sur Google One et ne sont pas non plus emportés automatiquement par le transfert d'appareil ; les données de l'application n'existent que sur cet appareil et sont supprimées quand vous la désinstallez ou effacez ses données.</li>
 </ul>
 
 <h2>6. Vos contrôles et droits</h2>
@@ -187,7 +187,7 @@ Avant d'intégrer tout nouveau sous-traitant de données (SDK d'annonces / stati
 
 <!-- ============================ Partie 2 : Conditions d'utilisation ============================ -->
 <h2 class="doc-title" id="terms">Conditions d'utilisation</h2>
-<p class="meta">Date d'entrée en vigueur : 20 octobre 2026 | S'applique à : OverLang</p>
+<p class="meta">Date d'entrée en vigueur : 25 octobre 2026 | S'applique à : OverLang</p>
 
 <p>En faisant votre choix dans le guide de premier lancement et en appuyant sur « Commencer », vous confirmez avoir lu et accepter cet accord ; vous pouvez cesser d'utiliser et désinstaller l'Application à tout moment. L'Application est un outil de traduction d'écran qui effectue la reconnaissance de texte et la traduction sur votre appareil,
 fonctionne selon un modèle « gratuit + publicité » et nécessite une connexion internet pour fournir pleinement ces capacités.</p>
@@ -237,8 +237,8 @@ La traduction d'écran lit tout ce qui s'affiche sur votre écran, <strong>y com
 
 <h2>5. Appareils, données et sauvegarde</h2>
 <p>L'Application repose sur l'inférence locale et requiert Android 10 (API 29) ou supérieur ; les appareils moins performants peuvent présenter une latence notable.</p>
-<p>Votre historique des traductions et vos captures sont stockés uniquement sur votre appareil et vous appartiennent. L'Application <strong>n'assume aucune obligation de sauvegarde</strong> : changer d'appareil, effacer les données de l'application ou la désinstaller fera perdre tous les enregistrements.
-Si vous devez les conserver, sauvegardez vous-même votre appareil au niveau du système, ou enregistrez séparément le contenu important. Pour la manière dont les données sont traitées (où elles sont stockées, comment elles sont supprimées et quelles informations sont transmises pour les annonces et les statistiques), voir les Sections 2 et 5 de la « Politique de confidentialité » de cette page.</p>
+<p>Votre historique des traductions et vos captures sont stockés uniquement sur votre appareil et vous appartiennent. L'Application <strong>n'assume aucune obligation de sauvegarde</strong> et s'est retirée de la sauvegarde des données d'application et du transfert vers un nouvel appareil : changer d'appareil, effacer les données de l'application ou la désinstaller fera perdre tous les enregistrements,
+et la sauvegarde système ne les conservera pas non plus pour vous. Si vous devez conserver quelque chose, sauvegardez vous-même le contenu important (par exemple en faisant votre propre capture). Pour la manière dont les données sont traitées (où elles sont stockées, comment elles sont supprimées et quelles informations sont transmises pour les annonces et les statistiques), voir les Sections 2 et 5 de la « Politique de confidentialité » de cette page.</p>
 
 <h2>6. Propriété intellectuelle</h2>
 <ul>

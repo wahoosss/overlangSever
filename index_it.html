@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   OverLang Informativa sulla privacy e Termini di utilizzo — Italiano (copia del sito).
-  Tradotto dal master inglese (assets/legal/agreement.html). Le regole di manutenzione autorevoli
+  Tradotto dal documento principale in cinese (index_zh.html; anche la copia offline assets/legal/agreement.html è in cinese). Le regole di manutenzione autorevoli
   e la checklist di conformità ⚠ si trovano in quel file master; dopo ogni modifica al testo,
   risincronizza tutti gli index_<locale>.html qui e ricaricali.
   Testo legale tradotto automaticamente — fallo revisionare da un madrelingua o da un legale prima dell'uso.
@@ -47,7 +47,7 @@
 
 <!-- ============================ Parte 1: Informativa sulla privacy ============================ -->
 <h2 class="doc-title" id="privacy">Informativa sulla privacy</h2>
-<p class="meta">Data di entrata in vigore: 20 ottobre 2026 | Si applica a: OverLang</p>
+<p class="meta">Data di entrata in vigore: 25 ottobre 2026 | Si applica a: OverLang</p>
 
 <p>L'App traduce il testo sullo schermo in tempo reale e lo ridisegna al suo posto; riconoscimento e traduzione avvengono entrambi sul tuo dispositivo. Funziona con un modello "gratuito + pubblicità", quindi si connette a internet per caricare gli annunci
 e, con il tuo consenso, segnala le statistiche d'uso necessarie e le informazioni sugli arresti anomali. L'App è distribuita tramite Google Play e la sua privacy segue le politiche di Google Play e il Regolamento generale sulla protezione dei dati (GDPR) dell'UE.
@@ -75,7 +75,7 @@ Di seguito prima una panoramica rapida, poi i dettagli.</p>
 <p class="note">Sugli "annunci non personalizzati": quando un annuncio viene richiesto e mostrato, l'SDK pubblicitario trasmette comunque a Google informazioni su dispositivo, rete e identificatore pubblicitario per consegna, limitazione della frequenza, attribuzione e antifrode;
 queste informazioni non vengono usate per creare un profilo di interessi né per il targeting personalizzato. "Non personalizzato" limita il modo in cui gli annunci sono mirati, non se i dati vengono inviati.</p>
 <p>Utenti dello Spazio economico europeo (SEE) e del Regno Unito: vedrai inoltre un'interfaccia di consenso standard fornita da Google (User Messaging Platform, UMP). La tua scelta lì ha la precedenza sulla casella sopra
-e determina direttamente se gli annunci sono personalizzati e se le analisi sono attivate. Puoi revocare o modificare quella scelta in qualsiasi momento: è disponibile un accesso per riaprire l'interfaccia delle opzioni sulla privacy dell'UMP in alto a destra nella pagina "Informativa sulla privacy e Termini di utilizzo" dell'App.</p>
+e determina direttamente se gli annunci sono personalizzati e se le analisi sono attivate. Puoi revocare o modificare quella scelta in qualsiasi momento: oltre a quell'interfaccia di consenso e alle impostazioni di sistema, nella pagina "Informativa sulla privacy e Termini di utilizzo" dell'App è disponibile in alto a destra un accesso per riaprire l'interfaccia delle opzioni sulla privacy (visibile solo agli utenti delle regioni in cui il consenso è richiesto per legge).</p>
 
 <h2>2. Quali informazioni raccogliamo e a cosa servono</h2>
 
@@ -93,7 +93,7 @@ Dopo aver autorizzato la registrazione dello schermo: i fotogrammi vengono letti
   <li>Il numero massimo di voci della cronologia, se salvare le immagini originali e la cancellazione di tutta la cronologia si regolano nelle impostazioni in alto a destra della pagina "Cronologia delle traduzioni"; ridurre il massimo elimina immediatamente le voci più vecchie e i relativi screenshot;</li>
   <li>Questi contenuti <strong>non entrano mai nel percorso di segnalazione di annunci o analisi</strong> (vedi 2.3 e 2.4) e vengono eliminati quando disinstalli l'App o cancelli i dati dell'app.</li>
 </ul>
-<p class="note">Promemoria: la traduzione dello schermo legge tutto ciò che appare sul tuo schermo, il che può includere messaggi che altri ti hanno inviato. Voci della cronologia e screenshot sono salvati così sul tuo dispositivo, quindi proteggilo e controlla questi contenuti prima di condividere o eseguire il backup del telefono.</p>
+<p class="note">Promemoria: la traduzione dello schermo legge tutto ciò che appare sul tuo schermo, il che può includere messaggi che altri ti hanno inviato. Voci della cronologia e screenshot sono salvati così sul tuo dispositivo (l'App non partecipa ad alcun backup sul cloud; vedi Sezione 5), quindi proteggilo e controlla questi contenuti prima di condividere lo schermo o affidare il dispositivo a qualcun altro.</p>
 
 <h3>2.3 Informazioni usate per la consegna degli annunci (avviene che tu accetti o meno la personalizzazione)</h3>
 <p>Per caricare e consegnare annunci ed eseguire deduplicazione, attribuzione e antifrode, l'SDK pubblicitario (Google AdMob) elabora le seguenti informazioni:</p>
@@ -145,10 +145,10 @@ Quando rifiuti, Firebase non viene inizializzato e nemmeno un byte dei dati d'us
   <li><strong>Google Firebase Analytics</strong>: attivato solo dopo il tuo consenso; raccoglie eventi d'uso e di arresto anomalo e alcune informazioni sul dispositivo per statistiche sulla disponibilità delle funzioni e risoluzione dei problemi di stabilità; non inizializzato e nulla caricato quando rifiuti. Vedi <a href="https://firebase.google.com/support/privacy">firebase.google.com/support/privacy</a>;</li>
   <li><strong>Google User Messaging Platform (UMP)</strong>: mostra un'interfaccia di consenso conforme agli utenti SEE/Regno Unito e registra e trasmette la tua scelta di consenso perché AdMob e Firebase la leggano; elabora informazioni di base su dispositivo e app e la regione approssimativa. Vedi <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>;</li>
   <li><strong>Framework dei servizi Google (Google Play services)</strong>: fornisce l'identificatore pubblicitario (GAID) e il canale di download on-demand per i pacchetti lingua di ML Kit; l'App legge l'identificatore pubblicitario e ottiene i dizionari di traduzione tramite esso. Vedi <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>;</li>
-  <li><strong>Google ML Kit (traduzione, identificazione della lingua)</strong>: esegue traduzione offline e rilevamento della lingua sul tuo dispositivo; i download dei modelli sono descritti in 2.5;</li>
+  <li><strong>Google ML Kit (traduzione)</strong>: esegue traduzione offline sul tuo dispositivo; i download dei modelli sono descritti in 2.5;</li>
   <li><strong>ONNX Runtime</strong>: esegue il modello di riconoscimento del testo sul tuo dispositivo — inferenza puramente locale, senza rete e senza raccolta di dati;</li>
   <li><strong>Modelli e dizionari di rilevamento / riconoscimento PP-OCR</strong>: file di modelli open source che servono solo come capacità di riconoscimento locale; entrano nel tuo dispositivo tramite download e non portano alcun tuo dato;</li>
-  <li><strong>Material Components, Coil, Kotlin Coroutines, OkHttp e altre librerie open source</strong>: implementazioni locali per interfaccia, caricamento immagini e richieste di rete; non raccolgono dati e seguono le rispettive licenze open source.</li>
+  <li><strong>Material Components, Kotlin Coroutines, OkHttp e altre librerie open source</strong>: implementazioni locali per interfaccia e richieste di rete; non raccolgono dati e seguono le rispettive licenze open source.</li>
 </ul>
 
 <h2>5. Conservazione, condivisione e protezione delle informazioni</h2>
@@ -157,7 +157,7 @@ Quando rifiuti, Firebase non viene inizializzato e nemmeno un byte dei dati d'us
   <li><strong>Sicurezza del trasferimento</strong>: tutte le richieste di rete usano HTTPS; le richieste di annunci e analisi non portano il contenuto del tuo schermo, testo originale, traduzioni o cronologia;</li>
   <li><strong>Ambito della condivisione</strong>: condivise con le terze parti sopra solo nella misura necessaria a implementare annunci, analisi e risoluzione dei problemi, e <strong>le tue informazioni personali non vengono mai vendute</strong>; quando richiesto dalla legge o imposto legalmente da un'autorità competente, potremmo divulgarle come richiesto dalla legge e informarti nei limiti consentiti;</li>
   <li><strong>Trasferimenti transfrontalieri</strong>: Google AdMob / Firebase / UMP possono comportare il trasferimento di dati al di fuori del tuo paese (ad es. verso i server globali di Google); ci basiamo su questo accordo e sulle Clausole contrattuali standard (SCC) della terza parte interessata e su altri meccanismi di conformità come base del trasferimento;</li>
-  <li><strong>Backup del dispositivo</strong>: il "backup dei dati delle app / trasferimento su un nuovo dispositivo" di Android è gestito dalle tue impostazioni di sistema e da Google One, e può includere i dati della cronologia dell'App nel tuo backup personale. Questa non è raccolta di dati da parte dell'App; puoi disattivare il backup nelle impostazioni di sistema, o disattivare "esegui il backup dei dati delle app condivisi con me".</li>
+  <li><strong>Backup del dispositivo</strong>: l'App ha escluso se stessa dal backup di Android ("backup dei dati delle app / trasferimento su un nuovo dispositivo" è disattivato per l'App, autoBackup spento): cronologia, screenshot, preferenze e modelli scaricati non vengono mai caricati su Google One e non vengono portati automaticamente nemmeno dal trasferimento del dispositivo; i dati dell'app esistono solo su questo dispositivo e si cancellano quando la disinstalli o ne cancelli i dati.</li>
 </ul>
 
 <h2>6. I tuoi controlli e diritti</h2>
@@ -187,7 +187,7 @@ Prima di integrare qualsiasi nuovo responsabile del trattamento (SDK di annunci 
 
 <!-- ============================ Parte 2: Termini di utilizzo ============================ -->
 <h2 class="doc-title" id="terms">Termini di utilizzo</h2>
-<p class="meta">Data di entrata in vigore: 20 ottobre 2026 | Si applica a: OverLang</p>
+<p class="meta">Data di entrata in vigore: 25 ottobre 2026 | Si applica a: OverLang</p>
 
 <p>Effettuando la tua scelta nella guida al primo avvio e toccando "Inizia", confermi di aver letto e di accettare questo accordo; puoi smettere di usare e disinstallare l'App in qualsiasi momento. L'App è uno strumento di traduzione dello schermo che esegue riconoscimento del testo e traduzione sul tuo dispositivo,
 funziona con un modello "gratuito + pubblicità" e richiede una connessione internet per fornire pienamente queste capacità.</p>
@@ -237,8 +237,8 @@ La traduzione dello schermo legge tutto ciò che appare sul tuo schermo, <strong
 
 <h2>5. Dispositivi, dati e backup</h2>
 <p>L'App si basa sull'inferenza locale e richiede Android 10 (API 29) o superiore; i dispositivi meno performanti possono mostrare una latenza notevole.</p>
-<p>La tua cronologia delle traduzioni e i tuoi screenshot sono salvati solo sul tuo dispositivo e ti appartengono. L'App <strong>non assume alcun obbligo di backup</strong>: cambiare dispositivo, cancellare i dati dell'app o disinstallarla farà perdere tutti i record.
-Se devi conservarli, esegui tu stesso il backup del dispositivo a livello di sistema, oppure salva separatamente i contenuti importanti. Per come vengono elaborati i dati (dove sono salvati, come vengono eliminati e quali informazioni vengono segnalate per annunci e analisi), vedi le Sezioni 2 e 5 dell'"Informativa sulla privacy" in questa pagina.</p>
+<p>La tua cronologia delle traduzioni e i tuoi screenshot sono salvati solo sul tuo dispositivo e ti appartengono. L'App <strong>non assume alcun obbligo di backup</strong> e ha escluso se stessa dal backup dei dati delle app e dal trasferimento su un nuovo dispositivo: cambiare dispositivo, cancellare i dati dell'app o disinstallarla farà perdere tutti i record,
+e il backup di sistema non li conserverà per te. Se devi conservare qualcosa, salva tu stesso i contenuti importanti (ad esempio facendo tu uno screenshot). Per come vengono elaborati i dati (dove sono salvati, come vengono eliminati e quali informazioni vengono segnalate per annunci e analisi), vedi le Sezioni 2 e 5 dell'"Informativa sulla privacy" in questa pagina.</p>
 
 <h2>6. Proprietà intellettuale</h2>
 <ul>

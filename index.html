@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <!--
-  隐私政策 + 用户协议合并文书（英文版）：随包内置，是**唯一的离线回落件**。
-  LegalActivity 默认按当前界面语言远端加载 Settings.privacyPolicyBaseUrl 下的 index_<locale>.html
-  （https://site.overlang.xyz/index_zh.html、/index_de.html …，默认 index.html 为英文版，与 Play 后台同一条）；
-  **只有网络不通 / 审核离线 / 站点异常**时，才由 WebViewClient 回落到本英文件（file:///android_asset），
-  任何界面语言断网都回落到这一份英文，APK 内不再内置其它语言版本（体积考虑）。
+  隐私政策 + 用户协议合并文书 · 英文版（站点根页面）：本目录发布到 https://site.overlang.xyz/（Play 商店填写的 URL，
+  Google 定期抓取核验）；根路径给出的就是本件——index.html 与本件是同一份英文文书的两份拷贝，改一份必须同步另一份。
+  中文主源是同目录的 index_zh.html；app/src/main/assets/legal/agreement.html 是**中文的同版离线回落镜像**。
+  LegalActivity 按当前界面语言取本目录的 index_<locale>.html（白名单 en/zh/ja/ko/es/fr/de/pt-BR/ru/it/id，见 DOCUMENT_FILE_TAGS）：
+    英文界面直接用站点根路径（给出的就是本件）；语言件这一级出错（连接失败或 4xx/5xx）先退根路径，
+    仍失败（断网/DNS/5xx）才回落包内中文镜像。站点托管对未知路径返回 200 + 根页面（软 404），
+    「这个语言还没翻」实际由服务器给出英文，客户端那两级是换托管也不塌的保险。
+  ⚠ 同一文书有多份拷贝（中文主源 / 包内镜像 / 本英文件 / 其余 9 个语言件）：正文改动必须同打，不许漂移。
 
-  ⚠ 本件是「文书与代码的唯一对账点」（见 AGENTS.md §5.8）：改口径先改这里，再同步 tools_pack/policy_site
-    下的全部 index_<locale>.html（含 index.html）并重新上传，否则线上/离线、各语言之间漂移。
-    各语言站点文件是本英文/中文母本的翻译；机器翻译的法律文书上线前应由母语者或法务复核。
+  ⚠ 与代码的唯一对账点是 app/src/main/assets/legal/agreement.html 文件头的清单（见 AGENTS.md §5.8）：
+    改口径先改那一份与 index_zh.html，再同步本件与其余语言件并重新上传，否则线上/离线、各语言之间漂移。
+    各语言站点件是母本的翻译；机器翻译的法律文书上线前应由母语者或法务复核。
 
   维护约定（改正文前先读）：
   - 合规口径：本应用经 **Google Play** 分发，隐私合规以 **Google Play 政策 + GDPR（欧洲经济区/英国）** 为准；
@@ -20,15 +23,18 @@
       ① 首启引导末页 + 默认勾选的「开始使用」同意框（GuideActivity，取消勾选 = 拒绝）；
       ③ 统计条件出设备：`SdkBootstrap` 读 `privacyAgreed` 决定 `Analytics.init(consented=…)`，
         App.onCreate 不再写死 consented=true；未同意时 libdata 一个字节不出设备；
-      ④ EEA/英国 UMP（ConsentGate）：只认 `ConsentStatus.OBTAINED` 才放开个性化（不用 canRequestAds 充数）；
+      ④ EEA/英国 UMP（ConsentGate）：进引导页即 prewarm 预请求同意信息，点「开始使用」且已同意才弹表单，
+        点击时仍未就绪按失败处理→保持非个性化；个性化只认 OBTAINED / NOT_REQUIRED（不用 canRequestAds 充数）；
       ②的「拒绝→非个性化」分支：`Admob.npa = !(privacyAgreed && personalizedAllowed)` 已实现；
-      撤回/更改同意入口：协议页右上角（LegalActivity ivRight，仅 UMP REQUIRED 用户可见）。
-  - ⚠ 仍未落实（提交 Play 前必须完成，「文书说的与实际做的不一致」是政策违规）：
-      ②的广告位：仍是 Google 官方测试 id（见 `res/values/strings.xml` 的 admob_app_id / ad_unit_session_end_interstitial），
-        上架前必须整体换成 AdMob 后台真实 id（应用 id 与广告单元 id 两条一起换）；
-      统计上传缺 `google-services.json`：当前「统计没落云端」是缺该文件时 `:libdata` 报 NO_FIREBASE_APP 的巧合，
-        **不是已合规**；一旦放入配置文件就立即开始上传，届时本文「四」的 Firebase 段与 Play 数据安全表必须同步为真。
+      撤回/更改同意入口：协议页右上角（LegalActivity ivRight + ConsentGate.openPrivacyOptions，仅 privacyOptionsRequired 用户可见）。
+  - ⚠ 唯一剩余项：AdMob 仍是 Google 官方测试广告位（见 `res/values/strings.xml` 的 admob_app_id /
+    ad_unit_session_end_interstitial），且本目录 `app-ads.txt` 仍是示例发布商 id；提交前必须整体换成真实 id
+    （应用 id 与广告单元 id 两条一起换，见 store/05-compliance-blockers.md 的 B2 条）。
+    另：`google-services.json` 尚未放入（B3，发布决策点）——开发期「统计没落云端」是缺该文件时 `:libdata`
+    报 NO_FIREBASE_APP 的巧合，**不是已合规**，一旦放入就立即开始上传。
     接入任何一个新的数据处理者时，先核对它的名称、收集范围与官方隐私链接是否与本文件「四」一致，再上线；
+  - 备份口径与代码绑定：`AndroidManifest` 的 `allowBackup="false"` 决定「五·设备备份」与用户协议「五」的写法，
+    改 allowBackup 必须同步改这两句；
   - 目录是纯文字、不是链接：LegalActivity 故意关掉 JavaScript，而 WebView 在关 JS 时不会响应 `#锚点`
     的同文档跳转（实测点了不滚），放个按下去没反应的导航比不放更糟；doc-title 上的 id 保留，
     将来改挂 https 并开脚本时可直接接上；
@@ -100,7 +106,7 @@
 
 <!-- ============================ Part 1: Privacy Policy ============================ -->
 <h2 class="doc-title" id="privacy">Privacy Policy</h2>
-<p class="meta">Effective date: October 20, 2026 | Applies to: OverLang</p>
+<p class="meta">Effective date: October 25, 2026 | Applies to: OverLang</p>
 
 <p>The App translates on-screen text in real time and paints it back in place; recognition and translation both happen on your device. It runs on a "free + ads" model, so it connects to the internet to load ads,
 and, with your consent, reports necessary usage statistics and crash information. The App is distributed via Google Play, and its privacy compliance follows the Google Play policies and the EU General Data Protection Regulation (GDPR).
@@ -128,7 +134,7 @@ Below is a quick overview first, then the details.</p>
 <p class="note">About "non-personalized ads": when an ad is requested and shown, the ad SDK still transmits device, network, and advertising-identifier information to Google for delivery, frequency capping, attribution, and anti-fraud;
 this information is not used to build an interest profile or for personalized targeting. "Non-personalized" limits how ads are targeted, not whether data is sent at all.</p>
 <p>European Economic Area (EEA) and UK users: you will additionally see a standard consent interface provided by Google (User Messaging Platform, UMP). Your choice there takes precedence over the checkbox above
-and directly determines whether ads are personalized and whether analytics are enabled. You can withdraw or change that choice at any time: an entry to reopen the UMP privacy-options interface is provided at the top-right of the App's "Privacy Policy &amp; Terms of Use" page.</p>
+and directly determines whether ads are personalized and whether analytics are enabled. You can withdraw or change that choice at any time: besides that consent interface and your system settings, the App's "Privacy Policy &amp; Terms of Use" page provides an entry at the top-right to reopen the privacy-options interface (shown only to users in regions where consent is legally required).</p>
 
 <h2>2. What information we collect and what it is used for</h2>
 
@@ -146,7 +152,7 @@ After you authorize screen recording: frames are read one by one → text is rec
   <li>The maximum number of history entries, whether to save original images, and clearing all history are all adjusted in the settings at the top-right of the "Translation history" page; lowering the maximum immediately trims the oldest entries and deletes their screenshots;</li>
   <li>This content <strong>never enters the ads or analytics reporting path</strong> (see 2.3 and 2.4), and it is deleted when you uninstall the App or clear app data.</li>
 </ul>
-<p class="note">Reminder: screen translation reads everything shown on your screen, which may include messages others sent you. History entries and screenshots are stored on your device like this, so please keep your device safe and check this content before sharing or backing up your phone.</p>
+<p class="note">Reminder: screen translation reads everything shown on your screen, which may include messages others sent you. History entries and screenshots are stored on your device like this (the App does not take part in any cloud backup; see Section 5), so please keep your device safe and check this content before you share your screen or hand the device to someone else.</p>
 
 <h3>2.3 Information used for ad delivery (happens whether or not you accept personalization)</h3>
 <p>To load and serve ads and to perform de-duplication, attribution, and anti-fraud, the ad SDK (Google AdMob) processes the following information:</p>
@@ -198,10 +204,10 @@ When you decline, Firebase is not initialized, and not a single byte of the abov
   <li><strong>Google Firebase Analytics</strong>: enabled only after you consent; collects usage and crash events and some device information for feature-availability statistics and stability troubleshooting; not initialized and nothing uploaded when you decline. See <a href="https://firebase.google.com/support/privacy">firebase.google.com/support/privacy</a>;</li>
   <li><strong>Google User Messaging Platform (UMP)</strong>: shows a compliant consent interface to EEA/UK users and records and passes your consent choice for AdMob and Firebase to read; processes basic device and app information and approximate region. See <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>;</li>
   <li><strong>Google services framework (Google Play services)</strong>: provides the advertising identifier (GAID) and the on-demand download channel for ML Kit language packs; the App reads the advertising identifier and obtains translation dictionaries through it. See <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>;</li>
-  <li><strong>Google ML Kit (translation, language identification)</strong>: performs offline translation and language detection on your device; model downloads are described in 2.5;</li>
+  <li><strong>Google ML Kit (translation)</strong>: performs offline translation on your device; model downloads are described in 2.5;</li>
   <li><strong>ONNX Runtime</strong>: runs the text-recognition model on your device — pure on-device inference, no network, and collects no data;</li>
   <li><strong>PP-OCR detection / recognition models and dictionaries</strong>: open-source model files that serve only as on-device recognition capability; they enter your device via download and carry none of your data;</li>
-  <li><strong>Material Components, Coil, Kotlin Coroutines, OkHttp, and other open-source libraries</strong>: local implementations for UI, image loading, and network requests; they collect no data and follow their respective open-source licenses.</li>
+  <li><strong>Material Components, Kotlin Coroutines, OkHttp, and other open-source libraries</strong>: local implementations for UI and network requests; they collect no data and follow their respective open-source licenses.</li>
 </ul>
 
 <h2>5. Storage, sharing, and protection of information</h2>
@@ -210,7 +216,7 @@ When you decline, Firebase is not initialized, and not a single byte of the abov
   <li><strong>Transfer security</strong>: all network requests use HTTPS; ad and analytics requests do not carry your screen content, original text, translations, or history;</li>
   <li><strong>Sharing scope</strong>: shared with the third parties above only to the extent necessary to implement ads, analytics, and troubleshooting, and <strong>your personal information is never sold</strong>; where required by law or compelled by a competent authority, we may disclose it as required by law and notify you to the extent permitted;</li>
   <li><strong>Cross-border transfers</strong>: Google AdMob / Firebase / UMP may involve transferring data outside your country (e.g., to Google's global servers); we rely on this agreement and the applicable third party's Standard Contractual Clauses (SCC) and other compliance mechanisms as the basis for transfer;</li>
-  <li><strong>Device backup</strong>: Android's "app data backup / transfer to a new device" is handled by your system settings and Google One, and may include the App's history data in your personal backup. This is not data collection by the App; you can turn off backup in system settings, or turn off "back up app data shared with me".</li>
+  <li><strong>Device backup</strong>: the App has opted out of Android's "back up app data / transfer to a new device" (autoBackup is disabled): your history, screenshots, preferences, and downloaded models are never uploaded to Google One and are not carried over by the system's device transfer either — app data exists only on this device and is deleted when you uninstall the App or clear its data.</li>
 </ul>
 
 <h2>6. Your controls and rights</h2>
@@ -240,7 +246,7 @@ Before integrating any new data processor (ads / analytics / consent-management 
 
 <!-- ============================ Part 2: Terms of Use ============================ -->
 <h2 class="doc-title" id="terms">Terms of Use</h2>
-<p class="meta">Effective date: October 20, 2026 | Applies to: OverLang</p>
+<p class="meta">Effective date: October 25, 2026 | Applies to: OverLang</p>
 
 <p>By making your choice on the first-launch guide and tapping "Get started", you confirm that you have read and agree to this agreement; you may stop using and uninstall the App at any time. The App is a screen-translation tool that performs text recognition and translation on your device,
 runs on a "free + ads" model, and requires an internet connection to provide these capabilities in full.</p>
@@ -290,8 +296,8 @@ Screen translation reads everything shown on your screen, <strong>including mess
 
 <h2>5. Devices, data, and backup</h2>
 <p>The App relies on on-device inference and requires Android 10 (API 29) or above; lower-performance devices may show noticeable latency.</p>
-<p>Your translation history and screenshots are stored only on your device and belong to you. The App <strong>assumes no backup obligation</strong>: changing devices, clearing app data, or uninstalling will lose all records.
-If you need to keep them, back up your device yourself at the system level, or save important content separately. For how data is processed (where it is stored, how it is deleted, and what information is reported for ads and analytics), see Sections 2 and 5 of the "Privacy Policy" on this page.</p>
+<p>Your translation history and screenshots are stored only on your device and belong to you. The App <strong>assumes no backup obligation</strong> and has opted out of Android's app-data backup and new-device transfer:
+changing devices, clearing app data, or uninstalling will lose all records, and system backup will not keep them for you either. If you need to keep something, save the important content yourself (for example, take your own screenshot). For how data is processed (where it is stored, how it is deleted, and what information is reported for ads and analytics), see Sections 2 and 5 of the "Privacy Policy" on this page.</p>
 
 <h2>6. Intellectual property</h2>
 <ul>
