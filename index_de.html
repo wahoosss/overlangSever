@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   OverLang Datenschutzrichtlinie & Nutzungsbedingungen — Deutsch (Website-Kopie).
-  Übersetzt aus dem chinesischen Hauptdokument (index_zh.html; das Offline-Rückfallabbild assets/legal/agreement.html ist ebenfalls chinesisch). Die maßgeblichen Wartungsregeln
+  Übersetzt aus dem chinesischen Hauptdokument (index_zh.html; das Offline-Rückfallabbild assets/legal/agreement.html ist englisch). Die maßgeblichen Wartungsregeln
   und die ⚠ Compliance-Checkliste stehen in dieser Master-Datei; nach jeder Textänderung alle
   index_<locale>.html hier neu synchronisieren und erneut hochladen.
   Maschinenübersetzter Rechtstext — vor Verwendung von einem Muttersprachler oder Juristen prüfen lassen.
@@ -50,7 +50,7 @@
 <p class="meta">Wirksamkeitsdatum: 25. Oktober 2026 | Gilt für: OverLang</p>
 
 <p>Die App übersetzt Bildschirmtext in Echtzeit und malt ihn an Ort und Stelle zurück; Erkennung und Übersetzung erfolgen beide auf deinem Gerät. Sie läuft nach dem Modell „kostenlos + Werbung“ und verbindet sich daher mit dem Internet, um Werbung zu laden,
-und meldet mit deiner Einwilligung notwendige Nutzungsstatistiken und Absturzinformationen. Die App wird über Google Play vertrieben, und ihr Datenschutz folgt den Google-Play-Richtlinien sowie der Datenschutz-Grundverordnung (DSGVO) der EU.
+und bindet Google Firebase Analytics ein, um Nutzungsstatistiken und Absturzinformationen zu erheben (Basisbetriebdaten werden beim App-Start automatisch von diesem SDK erfasst, während die eigenen Nutzungsereignisse der App nur nach deiner Einwilligung gemeldet werden). Die App wird über Google Play vertrieben, und ihr Datenschutz folgt den Google-Play-Richtlinien sowie der Datenschutz-Grundverordnung (DSGVO) der EU.
 Zuerst ein kurzer Überblick, dann die Details.</p>
 
 <div class="summary">
@@ -59,7 +59,7 @@ Zuerst ein kurzer Überblick, dann die Details.</p>
     <li>Der von dir geteilte Bildschirminhalt wird auf deinem Gerät gelesen, erkannt, übersetzt und gemalt; <strong>er verlässt dein Gerät nie</strong>, verarbeitete Frames werden sofort verworfen und niemals als Grundlage für Werbe-Targeting verwendet.</li>
     <li>Übersetzungsverlauf und Screenshots werden im privaten Verzeichnis der App auf deinem Gerät gespeichert; keine andere App oder Website kann sie lesen. Du kannst sie einzeln oder komplett löschen; beim Deinstallieren werden sie entfernt.</li>
     <li>Die App bleibt kostenlos, indem sie Werbung über Google AdMob ausspielt; Werbung nutzt Informationen wie Gerät, Netzwerk und Werbekennungen (GAID).</li>
-    <li>Beim ersten Start kannst du zustimmen oder ablehnen: <strong>Zustimmen = personalisierte Werbung + Statistik aktiviert; Ablehnen = nur nicht personalisierte Werbung, Statistik deaktiviert. In beiden Fällen funktionieren alle lokalen Übersetzungsfunktionen weiterhin.</strong></li>
+    <li>Beim ersten Start kannst du zustimmen oder ablehnen: <strong>Zustimmen = personalisierte Werbung + die eigenen Nutzungsereignisse der App werden gemeldet; Ablehnen = nur nicht personalisierte Werbung, eigene Nutzungsereignisse werden nicht gemeldet.</strong> Zusätzlich erfasst Firebase Analytics als Analyse-Infrastruktur beim App-Start automatisch Basisbetriebdaten wie Sitzungen und Bildschirmaufrufe; dieser Teil wird von Googles SDK standardmäßig durchgeführt und ändert sich nicht über dieses Kästchen. In beiden Fällen funktionieren alle lokalen Übersetzungsfunktionen weiterhin, und dein Bildschirminhalt verlässt dein Gerät nie.</li>
     <li>Wir erheben weder deine Kontakte, SMS, Anrufprotokolle, Fotos noch deinen genauen Standort und lesen keine Passwörter oder Zahlungsdaten, die du in anderen Apps eingibst.</li>
     <li>Abgesehen von den für Werbung und Statistik nötigen Informationen ist die einzige weitere Netzwerkaktivität das Herunterladen von Offline-Modellen: Übersetzungs-Sprachpakete (Google) und OCR-Schriftmodelle (Entwickler-Mirror). Gesendet wird nur eine Anfrage nach „der Modelldatei für eine bestimmte Sprache“.</li>
   </ul>
@@ -68,14 +68,14 @@ Zuerst ein kurzer Überblick, dann die Details.</p>
 <h2>1. Wie wir deine Einwilligung einholen</h2>
 <p>Beim ersten Start zeigt die App diese Vereinbarung auf dem letzten Bildschirm der Anleitung mit einem standardmäßig aktivierten Bestätigungskästchen. Deine Einwilligung beruht auf <strong>deinem aktiven Tippen auf „Loslegen“</strong>, nicht auf dem Standardzustand:</p>
 <ul>
-  <li><strong>Aktiviert lassen und auf „Loslegen“ tippen = Zustimmen</strong>: aktiviert personalisierte Werbung und Statistik (Google Firebase Analytics);</li>
-  <li><strong>Deaktivieren und dann auf „Loslegen“ tippen = Ablehnen</strong>: Statistik wird deaktiviert und deine Nutzungs- und Absturzdaten werden nicht erhoben; um die App kostenlos zu halten, wird weiterhin Werbung gezeigt, aber nur nicht personalisierte;</li>
+  <li><strong>Aktiviert lassen und auf „Loslegen“ tippen = Zustimmen</strong>: aktiviert personalisierte Werbung und meldet die eigenen Nutzungsereignisse der App (welche Schaltfläche getippt wurde, ob eine Übersetzung erfolgreich war oder fehlschlug, und die Dauerbereiche der Phasen);</li>
+  <li><strong>Deaktivieren und dann auf „Loslegen“ tippen = Ablehnen</strong>: die Werbung wird nicht personalisiert, und die eigenen Nutzungsereignisse der App werden nicht gemeldet; Firebase Analytics erfasst jedoch als Analyse-Infrastruktur beim App-Start weiterhin automatisch Basisbetriebdaten wie Sitzungen und Bildschirmaufrufe, was in Googles SDK standardmäßig geschieht und nicht von diesem Kästchen abhängt;</li>
   <li>Zustimmen oder Ablehnen beeinflusst nicht deine Nutzung der Übersetzungsfunktionen; alle lokalen Fähigkeiten bleiben verfügbar.</li>
 </ul>
 <p class="note">Zu „nicht personalisierter Werbung“: Beim Anfordern und Anzeigen einer Werbung überträgt das Werbe-SDK weiterhin Geräte-, Netzwerk- und Werbekennungs-Informationen an Google für Auslieferung, Frequenzbegrenzung, Attribution und Betrugsprävention;
 diese Informationen werden nicht zum Erstellen eines Interessenprofils oder für personalisiertes Targeting verwendet. „Nicht personalisiert“ begrenzt die Art des Targetings, nicht ob überhaupt Daten gesendet werden.</p>
 <p>Nutzer im Europäischen Wirtschaftsraum (EWR) und im Vereinigten Königreich: Du siehst zusätzlich eine von Google bereitgestellte Standard-Einwilligungsoberfläche (User Messaging Platform, UMP). Deine dortige Wahl hat Vorrang vor dem Kästchen oben
-und bestimmt direkt, ob Werbung personalisiert wird und ob Statistik aktiviert ist. Du kannst diese Wahl jederzeit widerrufen oder ändern: Neben dieser Einwilligungsoberfläche und deinen Systemeinstellungen bietet die Seite „Datenschutzrichtlinie &amp; Nutzungsbedingungen“ der App oben rechts einen Zugang zum erneuten Öffnen der Datenschutzoptionen (nur für Nutzer in Regionen sichtbar, in denen die Einwilligung gesetzlich verlangt wird).</p>
+und bestimmt direkt, ob Werbung personalisiert wird und ob die eigenen Nutzungsereignisse der App gemeldet werden (die Basisbetriebdaten von Firebase werden vom SDK standardmäßig weiterhin erfasst). Du kannst diese Wahl jederzeit widerrufen oder ändern: Neben dieser Einwilligungsoberfläche und deinen Systemeinstellungen bietet die Seite „Datenschutzrichtlinie &amp; Nutzungsbedingungen“ der App oben rechts einen Zugang zum erneuten Öffnen der Datenschutzoptionen (nur für Nutzer in Regionen sichtbar, in denen die Einwilligung gesetzlich verlangt wird).</p>
 
 <h2>2. Welche Informationen wir erheben und wofür</h2>
 
@@ -104,14 +104,14 @@ Nachdem du die Bildschirmaufnahme autorisiert hast: Frames werden einzeln gelese
 </ul>
 <p>Wenn du zustimmst, kann Google die obigen Informationen für personalisiertes Targeting verwenden; wenn du ablehnst, wird Werbung nicht personalisiert ausgespielt (siehe Abschnitt 1). <strong>Werbeinhalte lesen nicht deinen Bildschirm, Erkennungsergebnisse, Übersetzungen oder deinen Verlauf.</strong></p>
 
-<h3>2.4 Informationen für Statistik und Absturzdiagnose (nur nach deiner Zustimmung erhoben)</h3>
-<p>Erst nachdem du gemäß Abschnitt 1 zugestimmt hast (für EWR/UK-Nutzer: Zustimmung zur Statistik in UMP), aktiviert die App Google Firebase Analytics und erhebt:</p>
+<h3>2.4 Informationen für Statistik und Absturzdiagnose</h3>
+<p>Die App bindet Google Firebase Analytics ein. Die Erhebung erfolgt in zwei Ebenen:</p>
 <ul>
-  <li>Nutzungsinformationen: Anzahl der Funktions-Tipps, ob eine Übersetzung erfolgreich war oder fehlschlug (Ergebniscodes), und die Dauerbereiche der Erkennungs- und Übersetzungsphasen, als Ereignisse;</li>
-  <li>Diagnoseinformationen: Absturz-Stacks und wo sie auftraten, zur Stabilitätsanalyse.</li>
+  <li><strong>Basisbetriebdaten (beim App-Start automatisch vom SDK erfasst, nicht von deiner Einwilligung abhängig)</strong>: Installation und Version der App, Sitzungsdauer, Bildschirmaufrufe, Gerätemodell und Betriebssystemversion, Sprache und ungefähre Region sowie Absturzinformationen;</li>
+  <li><strong>Eigene Nutzungsereignisse der App (nur nach deiner Einwilligung gemeldet)</strong>: Anzahl der Funktions-Tipps, ob eine Übersetzung erfolgreich war oder fehlschlug (Ergebniscodes), und die Dauerbereiche der Erkennungs- und Übersetzungsphasen.</li>
 </ul>
 <p>Die gemeldeten Nutzungsinformationen enthalten nur Verhaltenswerte wie „welche Schaltfläche wurde getippt“ und „war diese Übersetzung erfolgreich“; <strong>sie enthalten nicht den von dir geteilten Bildschirminhalt, den erkannten Originaltext, Übersetzungen, Verlaufsfelder, Screenshots oder Textpositionskoordinaten</strong>.
-Wenn du ablehnst, wird Firebase nicht initialisiert, und kein einziges Byte der obigen Nutzungs- oder Absturzdaten verlässt dein Gerät.</p>
+Wenn du ablehnst, meldet die App keine eigenen Nutzungsereignisse mehr; die Basisbetriebdaten von Firebase werden jedoch von diesem SDK gemäß seinem Standardverhalten weiterhin erfasst; um alle Meldungen vollständig zu beenden, deinstalliere die App.</p>
 
 <h3>2.5 Download-Anfragen zum Abrufen von Sprachmodellen</h3>
 <ul>
@@ -124,7 +124,7 @@ Wenn du ablehnst, wird Firebase nicht initialisiert, und kein einziges Byte der 
   <li>Identitätsinformationen: Name, Telefonnummer, E-Mail, Adresse — wir fordern diese weder an noch erheben wir sie (die App hat kein Kontosystem und erfordert keine Registrierung oder Anmeldung);</li>
   <li>Sensible Daten: Kontakte, SMS, Anrufprotokolle, Fotos und genauer oder ungefährer Standort — die App fordert diese Berechtigungen nicht an und liest sie nicht; Passwörter und Zahlungsdaten, die du in anderen Apps eingibst, werden von der App nicht erkannt, aufgezeichnet oder hochgeladen;</li>
   <li>Gerätekennungen: Die App selbst fordert keine IMEI, Android-ID oder andere Kennungen zur Profilerstellung an; die Werbekennung (GAID) wird nur vom Werbe-SDK für Auslieferung und Attribution verwendet und kann in den Systemeinstellungen zurückgesetzt oder deaktiviert werden;</li>
-  <li>Wenn du nicht zugestimmt hast: keine Nutzungsstatistiken oder Absturzprotokolle verlassen dein Gerät.</li>
+  <li>Unter keinen Umständen erheben wir: deinen Bildschirminhalt, den erkannten Originaltext, Übersetzungen, Verlauf oder Screenshots; nichts davon wird je an einen Server gesendet oder für Werbe-Targeting verwendet.</li>
 </ul>
 
 <h2>3. Berechtigungen, die wir anfordern, warum, und was sie nicht tun</h2>
@@ -132,7 +132,7 @@ Wenn du ablehnst, wird Firebase nicht initialisiert, und kein einziges Byte der 
   <li><strong>Bildschirmaufnahme (MediaProjection)</strong>: liest den von dir aktiv geteilten Bildschirminhalt, um Text zu erkennen. Jeder Start erfordert deine Bestätigung in einem Systemdialog; während der Freigabesitzung zeigt das System einen dauerhaften Hinweis „Bildschirm wird geteilt“, über den du jederzeit stoppen kannst;</li>
   <li><strong>Über anderen Apps einblenden (Overlay)</strong>: malt die Übersetzung an Ort und Stelle über den Originaltext und trägt die Start-/Stopp-Schaltflächen;</li>
   <li><strong>Vordergrunddienst</strong>: hält die Übersetzung am Laufen, wenn du zu anderen Apps wechselst. Diese Fähigkeit erfordert eine dauerhafte Benachrichtigung als Nachweis, aber die App <strong>fordert nicht die Berechtigung zur Anzeige von Benachrichtigungen an</strong>: Auf Android 13 und höher erscheint diese Benachrichtigung nicht, wenn du der App das Anzeigen von Benachrichtigungen nicht erlaubt hast, und die Übersetzung ist nicht betroffen — du erkennst dann am „Bildschirm wird geteilt“-Hinweis des Systems und der schwebenden Steuerschaltfläche, dass sie läuft, und kannst sie dort stoppen;</li>
-  <li><strong>Netzwerkzugriff und Netzwerkstatus</strong>: zum Laden von Werbung, zum Melden von Nutzungsstatistiken nach deiner Zustimmung und zum Herunterladen der in 2.5 beschriebenen Sprachpakete und Erkennungsmodelle sowie um dir bei einem Download-Fehler zu sagen, „ob kein Netzwerk besteht oder die Verbindung eingeschränkt ist“;</li>
+  <li><strong>Netzwerkzugriff und Netzwerkstatus</strong>: zum Laden von Werbung, zum Melden von Nutzungsstatistiken und Absturzinformationen (die Basisbetriebdaten werden beim Start automatisch von Firebase erfasst, während die eigenen Nutzungsereignisse der App erst nach deiner Einwilligung gemeldet werden) und zum Herunterladen der in 2.5 beschriebenen Sprachpakete und Erkennungsmodelle sowie um dir bei einem Download-Fehler zu sagen, „ob kein Netzwerk besteht oder die Verbindung eingeschränkt ist“;</li>
   <li>Die App <strong>fordert keine</strong> Kamera-, Mikrofon-, Kontakt-, Standort-, SMS-, Speicher- oder Fotogalerie-Schreibberechtigungen an.</li>
 </ul>
 <p class="note">Empfehlung: Lass die Bildschirmübersetzung nicht lange auf Seiten mit Zahlungen, Ausweisdokumenten oder der Privatsphäre anderer laufen; wenn du auf solchen Seiten Verlaufseinträge und Screenshots hinterlässt, werden sie auf deinem Gerät gespeichert. Verwende diese Funktion nur auf Bildschirmen, die du wirklich übersetzen musst.</p>
@@ -142,7 +142,7 @@ Wenn du ablehnst, wird Firebase nicht initialisiert, und kein einziges Byte der 
 <strong>Jede Drittpartei, die nicht auf dieser Seite aufgeführt ist, läuft nicht in der App</strong>, und Aktualisierungen der Liste werden mit App-Versionen ausgeliefert.</p>
 <ul>
   <li><strong>Google AdMob (Google Mobile Ads SDK)</strong>: spielt Werbung aus und verarbeitet Geräte- und Netzwerkinformationen sowie die Werbekennung (GAID) für Auslieferung, Deduplizierung, Attribution und Betrugsprävention; personalisiert bei Zustimmung, nicht personalisiert bei Ablehnung, und du kannst die Werbekennung in den Systemeinstellungen zurücksetzen oder deaktivieren. Siehe <a href="https://policies.google.com/technologies/ads">policies.google.com/technologies/ads</a> und <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>;</li>
-  <li><strong>Google Firebase Analytics</strong>: nur nach deiner Zustimmung aktiviert; erhebt Nutzungs- und Absturzereignisse sowie einige Geräteinformationen für Statistiken zur Funktionsverfügbarkeit und Stabilitätsanalyse; wird bei Ablehnung nicht initialisiert und lädt nichts hoch. Siehe <a href="https://firebase.google.com/support/privacy">firebase.google.com/support/privacy</a>;</li>
+  <li><strong>Google Firebase Analytics</strong>: die Analyse- und Absturz-Infrastruktur. Sie wird beim App-Start initialisiert und erfasst automatisch Basisbetriebdaten (Sitzungen, Bildschirmaufrufe, App-Version, Gerät und ungefähre Region, Abstürze); die eigenen Nutzungsereignisse der App werden nur nach deiner Einwilligung gesendet. Siehe <a href="https://firebase.google.com/support/privacy">firebase.google.com/support/privacy</a>;</li>
   <li><strong>Google User Messaging Platform (UMP)</strong>: zeigt EWR/UK-Nutzern eine konforme Einwilligungsoberfläche und zeichnet deine Einwilligungs-Wahl auf und gibt sie an AdMob und Firebase weiter; verarbeitet grundlegende Geräte- und App-Informationen sowie die ungefähre Region. Siehe <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>;</li>
   <li><strong>Google-Diensterahmen (Google Play-Dienste)</strong>: stellt die Werbekennung (GAID) und den Bedarfs-Download-Kanal für ML-KIT-Sprachpakete bereit; die App liest darüber die Werbekennung und ruft Übersetzungswörterbücher ab. Siehe <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>;</li>
   <li><strong>Google ML Kit (Übersetzung)</strong>: führt Offline-Übersetzung auf deinem Gerät aus; Modell-Downloads sind in 2.5 beschrieben;</li>
@@ -165,7 +165,7 @@ Wenn du ablehnst, wird Firebase nicht initialisiert, und kein einziges Byte der 
 <ul>
   <li><strong>Einwilligungswahl</strong>: Zustimmen oder Ablehnen über das Kästchen auf dem letzten Bildschirm der Ersteinrichtungs-Anleitung; EWR/UK-Nutzer können dies in der Google-Einwilligungsoberfläche (UMP) jederzeit vornehmen und ändern;</li>
   <li><strong>Personalisierte Werbung ausschalten</strong>: setze die Geräte-Werbekennung (GAID) in den Systemeinstellungen zurück oder deaktiviere sie — du siehst weiterhin Werbung, nur nicht interessenbasiert;</li>
-  <li><strong>Statistik stoppen</strong>: lehne die Einwilligung ab oder lösche die App-Daten und wähle dann erneut „nicht zustimmen“, um die Statistik-Meldung zu deaktivieren;</li>
+  <li><strong>Statistik stoppen</strong>: Wenn du die Einwilligung ablehnst, werden die eigenen Nutzungsereignisse der App nicht mehr gemeldet (du kannst auch die App-Daten löschen und erneut „nicht zustimmen“ wählen); die Basisbetriebdaten von Firebase werden von diesem SDK gemäß seinem Standardverhalten erfasst, und um alle Meldungen vollständig zu beenden, kannst du die App deinstallieren;</li>
   <li><strong>Frame-Erfassung jederzeit stoppen</strong>: tippe auf die schwebende Steuerschaltfläche auf der Überlagerung oder stoppe über den Systemhinweis „Bildschirm wird geteilt“;</li>
   <li><strong>Berechtigungen widerrufen</strong>: deaktiviere das Overlay oder widerruf die Autorisierung zur Bildschirmaufnahme in den Systemeinstellungen, und die entsprechenden Fähigkeiten werden sofort beendet;</li>
   <li><strong>Lokale Daten löschen</strong>: lösche einzelne Einträge oder den gesamten Verlauf samt Screenshots auf der Seite „Übersetzungsverlauf“ (mit zweiter Bestätigung vor dem Löschen); das Ausschalten von „Originalbild speichern“ beendet das Aufbewahren von Screenshots, und das Verringern von „Maximale Verlaufseinträge“ kürzt sofort das Gespeicherte;</li>
@@ -205,7 +205,7 @@ nach dem Modell „kostenlos + Werbung“ läuft und eine Internetverbindung ben
 <h2>2. Netzwerk und Werbung</h2>
 <ul>
   <li>Um kostenlos zu bleiben, zeigt die App von Google AdMob bereitgestellte und ausgespielte Werbung;</li>
-  <li>Werbung wird angezeigt, unabhängig davon, ob du der Personalisierung zustimmst: Zustimmung spielt personalisierte Werbung aus und aktiviert Statistik, Ablehnung spielt nur nicht personalisierte Werbung aus und deaktiviert Statistik. Den genauen Informationsumfang siehe „Datenschutzrichtlinie“ auf dieser Seite;</li>
+  <li>Werbung wird angezeigt, unabhängig davon, ob du der Personalisierung zustimmst: Bei Zustimmung wird personalisierte Werbung ausgespielt und die App meldet ihre eigenen Nutzungsereignisse, bei Ablehnung wird nur nicht personalisierte Werbung ausgespielt und diese eigenen Ereignisse werden nicht gemeldet (die Basisbetriebdaten von Firebase werden von diesem SDK weiterhin standardmäßig erfasst). Den genauen Informationsumfang siehe „Datenschutzrichtlinie“ auf dieser Seite;</li>
   <li>Das Laden von Werbung erfordert eine Internetverbindung; das Ablehnen der Einwilligung schaltet die Werbung nicht aus und beeinflusst nicht deine Nutzung der lokalen Übersetzungsfunktionen;</li>
   <li>Inhalt, Verfügbarkeit und eigene Bedingungen von Drittanbieter-Werbung und -Statistikdiensten liegen in der Verantwortung dieses Dritten; jegliche Transaktion oder Streitigkeit zwischen dir und ihnen steht in keinem Zusammenhang mit der App;</li>
   <li>Tippe nicht auf irreführende Werbung, um zu bezahlen oder herunterzuladen; die App hat keinen solchen Mechanismus zur bezahlten Freischaltung.</li>

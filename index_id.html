@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   OverLang Kebijakan Privasi & Ketentuan Penggunaan — Bahasa Indonesia (salinan situs).
-  Diterjemahkan dari induk berbahasa Mandarin (index_zh.html; cermin luring assets/legal/agreement.html juga berbahasa Mandarin). Aturan pemeliharaan yang
+  Diterjemahkan dari induk berbahasa Mandarin (index_zh.html; cermin luring assets/legal/agreement.html berbahasa Inggris). Aturan pemeliharaan yang
   otoritatif dan daftar periksa kepatuhan ⚠ ada di file master itu; setelah perubahan teks apa pun,
   sinkronkan ulang semua index_<locale>.html di sini dan unggah kembali.
   Teks hukum hasil terjemahan mesin — minta penutur asli atau penasihat hukum memeriksanya sebelum digunakan.
@@ -50,7 +50,7 @@
 <p class="meta">Tanggal berlaku: 25 Oktober 2026 | Berlaku untuk: OverLang</p>
 
 <p>Aplikasi ini menerjemahkan teks di layar secara waktu-nyata dan menggambarnya kembali di posisinya; pengenalan dan penerjemahan keduanya terjadi di perangkat Anda. Aplikasi ini berjalan dengan model "gratis + iklan", sehingga terhubung ke internet untuk memuat iklan,
-dan, dengan persetujuan Anda, melaporkan statistik penggunaan yang diperlukan dan informasi kerusakan. Aplikasi ini didistribusikan melalui Google Play, dan kepatuhan privasinya mengikuti kebijakan Google Play serta Peraturan Perlindungan Data Umum (GDPR) UE.
+dan mengintegrasikan Google Firebase Analytics untuk mengumpulkan statistik penggunaan dan informasi kerusakan (data operasional dasarnya dicatat secara otomatis oleh SDK tersebut saat Aplikasi diluncurkan, sedangkan event penggunaan khusus Aplikasi dilaporkan hanya setelah Anda memberikan persetujuan). Aplikasi ini didistribusikan melalui Google Play, dan kepatuhan privasinya mengikuti kebijakan Google Play serta Peraturan Perlindungan Data Umum (GDPR) UE.
 Berikut ikhtisar singkat terlebih dahulu, lalu rinciannya.</p>
 
 <div class="summary">
@@ -59,7 +59,7 @@ Berikut ikhtisar singkat terlebih dahulu, lalu rinciannya.</p>
     <li>Konten layar yang Anda bagikan dibaca, dikenali, diterjemahkan, dan digambar di perangkat Anda; <strong>konten itu tidak pernah meninggalkan perangkat Anda</strong>, bingkai yang telah diproses langsung dibuang, dan tidak pernah digunakan sebagai dasar penargetan iklan.</li>
     <li>Riwayat terjemahan dan tangkapan layar disimpan di direktori pribadi Aplikasi pada perangkat Anda; tidak ada aplikasi atau situs web lain yang dapat membacanya. Anda dapat menghapusnya satu per satu atau sekaligus, dan mencopot pemasangan akan menghapusnya.</li>
     <li>Aplikasi ini tetap gratis dengan menayangkan iklan melalui Google AdMob; iklan menggunakan informasi seperti perangkat, jaringan, dan pengenal periklanan (GAID).</li>
-    <li>Pada peluncuran pertama Anda dapat memilih menerima atau menolak: <strong>Menerima = iklan yang dipersonalisasi + analitik diaktifkan; Menolak = hanya iklan non-personalisasi, analitik dinonaktifkan. Apa pun pilihan Anda, semua fitur terjemahan lokal tetap berfungsi.</strong></li>
+    <li>Pada peluncuran pertama Anda dapat memilih menerima atau menolak: <strong>Menerima = iklan yang dipersonalisasi + event penggunaan khusus Aplikasi dilaporkan; Menolak = hanya iklan non-personalisasi, event penggunaan khusus tidak dilaporkan.</strong> Selain itu, Firebase Analytics, sebagai infrastruktur analitik, secara otomatis mencatat data operasional dasar seperti sesi dan tampilan layar saat Aplikasi diluncurkan; bagian itu dijalankan oleh SDK Google secara bawaan dan tidak berubah lewat kotak centang ini. Apa pun pilihan Anda, semua fitur terjemahan lokal tetap berfungsi dan konten layar Anda tidak pernah meninggalkan perangkat Anda.</li>
     <li>Kami tidak mengumpulkan kontak, SMS, log panggilan, foto, atau lokasi persis Anda, dan kami tidak membaca kata sandi atau detail pembayaran yang Anda ketik di aplikasi lain.</li>
     <li>Selain informasi yang diperlukan untuk iklan dan analitik, satu-satunya aktivitas jaringan lain adalah mengunduh model luring: paket bahasa terjemahan (Google) dan model aksara OCR (cermin pengembang). Satu-satunya yang dikirim adalah permintaan "berkas model untuk bahasa tertentu".</li>
   </ul>
@@ -68,14 +68,14 @@ Berikut ikhtisar singkat terlebih dahulu, lalu rinciannya.</p>
 <h2>1. Bagaimana kami memperoleh persetujuan Anda</h2>
 <p>Pada peluncuran pertama, Aplikasi menampilkan perjanjian ini di layar terakhir panduan, dengan kotak konfirmasi yang dicentang secara default. Persetujuan Anda didasarkan pada <strong>tindakan aktif Anda menekan "Mulai gunakan"</strong>, bukan pada status default:</p>
 <ul>
-  <li><strong>Biarkan tercentang dan tekan "Mulai gunakan" = Menerima</strong>: mengaktifkan iklan yang dipersonalisasi dan analitik (Google Firebase Analytics);</li>
-  <li><strong>Hapus centang lalu tekan "Mulai gunakan" = Menolak</strong>: analitik dinonaktifkan dan data penggunaan serta kerusakan Anda tidak dikumpulkan; untuk menjaga Aplikasi tetap gratis, iklan tetap ditampilkan, tetapi hanya yang non-personalisasi;</li>
+  <li><strong>Biarkan tercentang dan tekan "Mulai gunakan" = Menerima</strong>: mengaktifkan iklan yang dipersonalisasi dan melaporkan event penggunaan khusus Aplikasi (tombol mana yang diketuk, apakah suatu terjemahan berhasil atau gagal, dan rentang durasi tahap-tahapnya);</li>
+  <li><strong>Hapus centang lalu tekan "Mulai gunakan" = Menolak</strong>: iklan menjadi non-personalisasi dan event penggunaan khusus Aplikasi tidak dilaporkan; namun Firebase Analytics, sebagai infrastruktur analitik, tetap mengumpulkan secara otomatis data operasional dasar seperti sesi dan tampilan layar saat Aplikasi diluncurkan, yang dilakukan oleh SDK Google secara bawaan dan tidak bergantung pada kotak centang ini;</li>
   <li>Menerima atau menolak tidak memengaruhi penggunaan Anda atas fitur terjemahan; semua kemampuan lokal tetap tersedia.</li>
 </ul>
 <p class="note">Tentang "iklan non-personalisasi": saat meminta dan menampilkan iklan, SDK iklan tetap mengirim informasi perangkat, jaringan, dan pengenal periklanan ke Google untuk pengiriman, pembatasan frekuensi, atribusi, dan anti-penipuan;
 informasi ini tidak digunakan untuk membangun profil minat atau untuk penargetan yang dipersonalisasi. "Non-personalisasi" membatasi cara iklan ditargetkan, bukan apakah data dikirim sama sekali.</p>
 <p>Pengguna Wilayah Ekonomi Eropa (EEA) dan Inggris: Anda juga akan melihat antarmuka persetujuan standar yang disediakan oleh Google (User Messaging Platform, UMP). Pilihan Anda di sana lebih diutamakan daripada kotak centang di atas
-dan secara langsung menentukan apakah iklan dipersonalisasi dan apakah analitik diaktifkan. Anda dapat menarik atau mengubah pilihan itu kapan saja: selain antarmuka persetujuan tersebut dan pengaturan sistem, halaman "Kebijakan Privasi &amp; Ketentuan Penggunaan" Aplikasi menyediakan akses di kanan atas untuk membuka kembali antarmuka opsi privasi (hanya tampil bagi pengguna di wilayah yang mewajibkan persetujuan menurut hukum).</p>
+dan secara langsung menentukan apakah iklan dipersonalisasi dan apakah event penggunaan khusus Aplikasi dilaporkan (data operasional dasar Firebase tetap dikumpulkan oleh SDK tersebut secara bawaan). Anda dapat menarik atau mengubah pilihan itu kapan saja: selain antarmuka persetujuan tersebut dan pengaturan sistem, halaman "Kebijakan Privasi &amp; Ketentuan Penggunaan" Aplikasi menyediakan akses di kanan atas untuk membuka kembali antarmuka opsi privasi (hanya tampil bagi pengguna di wilayah yang mewajibkan persetujuan menurut hukum).</p>
 
 <h2>2. Informasi apa yang kami kumpulkan dan untuk apa</h2>
 
@@ -104,14 +104,14 @@ Setelah Anda mengotorisasi perekaman layar: bingkai dibaca satu per satu → tek
 </ul>
 <p>Saat Anda menerima, Google dapat menggunakan informasi di atas untuk penargetan yang dipersonalisasi; saat Anda menolak, iklan ditayangkan secara non-personalisasi (lihat Bagian 1). <strong>Konten iklan tidak membaca layar Anda, hasil pengenalan, terjemahan, atau riwayat Anda.</strong></p>
 
-<h3>2.4 Informasi yang digunakan untuk analitik dan diagnosis kerusakan (dikumpulkan hanya setelah Anda menerima)</h3>
-<p>Hanya setelah Anda membuat pilihan menerima sesuai Bagian 1 (untuk pengguna EEA/Inggris, menyetujui analitik di UMP), Aplikasi mengaktifkan Google Firebase Analytics dan mengumpulkan:</p>
+<h3>2.4 Informasi yang digunakan untuk analitik dan diagnosis kerusakan</h3>
+<p>Aplikasi ini mengintegrasikan Google Firebase Analytics. Pengumpulan datanya dilakukan dalam dua lapisan:</p>
 <ul>
-  <li>Informasi penggunaan: jumlah ketukan fitur, apakah suatu terjemahan berhasil atau gagal (kode hasil), dan rentang durasi tahap pengenalan dan penerjemahan, sebagai peristiwa;</li>
-  <li>Informasi diagnostik: tumpukan kerusakan dan lokasinya, untuk pemecahan masalah stabilitas.</li>
+  <li><strong>Data operasional dasar (dikumpulkan otomatis oleh SDK saat Aplikasi diluncurkan, tidak bergantung pada persetujuan Anda)</strong>: instalasi dan versi Aplikasi, durasi sesi, tampilan layar, model perangkat dan versi sistem operasi, bahasa dan perkiraan wilayah, serta informasi kerusakan;</li>
+  <li><strong>Event penggunaan khusus Aplikasi (dilaporkan hanya setelah Anda menyetujui)</strong>: jumlah ketukan fitur, apakah suatu terjemahan berhasil atau gagal (kode hasil), dan rentang durasi tahap pengenalan serta penerjemahan.</li>
 </ul>
 <p>Informasi penggunaan yang dilaporkan hanya berisi nilai perilaku seperti "tombol mana yang diketuk" dan "apakah terjemahan ini berhasil"; <strong>tidak berisi konten layar yang Anda bagikan, teks asli yang dikenali, terjemahan, bidang riwayat, tangkapan layar, atau koordinat posisi teks</strong>.
-Saat Anda menolak, Firebase tidak diinisialisasi, dan tidak satu byte pun data penggunaan dan kerusakan di atas meninggalkan perangkat Anda.</p>
+Saat Anda menolak, Aplikasi berhenti melaporkan event penggunaan khususnya, tetapi data operasional dasar Firebase tetap dikumpulkan oleh SDK tersebut sesuai perilaku bawaannya; untuk menghentikan seluruh pelaporan, copot pemasangan Aplikasi.</p>
 
 <h3>2.5 Permintaan unduhan untuk memperoleh model bahasa</h3>
 <ul>
@@ -124,7 +124,7 @@ Saat Anda menolak, Firebase tidak diinisialisasi, dan tidak satu byte pun data p
   <li>Informasi identitas: nama, nomor telepon, email, alamat — kami tidak meminta maupun mengumpulkannya (Aplikasi tidak memiliki sistem akun dan tidak memerlukan pendaftaran atau masuk);</li>
   <li>Data sensitif: kontak, SMS, log panggilan, foto, dan lokasi persis atau perkiraan — Aplikasi tidak meminta izin ini dan tidak membacanya; kata sandi dan detail pembayaran yang Anda ketik di aplikasi lain tidak dikenali, dicatat, atau diunggah oleh Aplikasi;</li>
   <li>Pengenal perangkat: Aplikasi sendiri tidak meminta IMEI, Android ID, atau pengenal lain yang digunakan untuk pembuatan profil; pengenal periklanan (GAID) hanya digunakan oleh SDK iklan untuk pengiriman dan atribusi, dan Anda dapat mengatur ulang atau menonaktifkannya di pengaturan sistem;</li>
-  <li>Saat Anda belum menyetujui: tidak ada statistik penggunaan atau log kerusakan yang meninggalkan perangkat Anda.</li>
+  <li>Dalam keadaan apa pun kami tidak mengumpulkan: konten layar Anda, teks asli yang dikenali, terjemahan, riwayat, atau tangkapan layar, dan tidak satu pun dari itu pernah dikirim ke server mana pun atau digunakan untuk penargetan iklan.</li>
 </ul>
 
 <h2>3. Izin yang kami minta dan alasannya, serta apa yang tidak akan dilakukannya</h2>
@@ -132,7 +132,7 @@ Saat Anda menolak, Firebase tidak diinisialisasi, dan tidak satu byte pun data p
   <li><strong>Perekaman layar (MediaProjection)</strong>: membaca konten layar yang secara aktif Anda pilih untuk dibagikan, untuk mengenali teks. Setiap kali memulai, Anda harus mengonfirmasi di dialog sistem; selama sesi berbagi, sistem menampilkan indikator tetap "sedang membagikan layar Anda", tempat Anda dapat berhenti kapan saja;</li>
   <li><strong>Tampilkan di atas aplikasi lain (lapisan atas)</strong>: menggambar terjemahan di posisinya di atas teks asli dan menampung tombol mulai / berhenti;</li>
   <li><strong>Layanan latar depan</strong>: menjaga terjemahan tetap berjalan saat Anda beralih ke aplikasi lain. Kemampuan ini memerlukan notifikasi tetap sebagai buktinya, tetapi Aplikasi <strong>tidak meminta izin tampilan notifikasi</strong>: di Android 13 ke atas, jika Anda belum mengizinkan Aplikasi menampilkan notifikasi, notifikasi ini tidak akan muncul, dan terjemahan tidak terpengaruh — saat itu Anda dapat mengetahui bahwa ia berjalan, dan menghentikannya, dari indikator "sedang membagikan layar Anda" sistem dan tombol kendali mengambang di layar;</li>
-  <li><strong>Akses jaringan dan status jaringan</strong>: digunakan untuk memuat iklan, melaporkan statistik penggunaan setelah Anda menyetujui, dan mengunduh paket bahasa serta model pengenalan yang dijelaskan di 2.5, dan untuk memberi tahu Anda "apakah tidak ada jaringan atau koneksi dibatasi" saat unduhan gagal;</li>
+  <li><strong>Akses jaringan dan status jaringan</strong>: digunakan untuk memuat iklan, melaporkan statistik penggunaan dan informasi kerusakan (data operasional dasar dikumpulkan secara otomatis oleh Firebase saat peluncuran, sedangkan event penggunaan khusus Aplikasi dilaporkan setelah Anda menyetujui), dan mengunduh paket bahasa serta model pengenalan yang dijelaskan di 2.5, dan untuk memberi tahu Anda "apakah tidak ada jaringan atau koneksi dibatasi" saat unduhan gagal;</li>
   <li>Aplikasi <strong>tidak meminta</strong> izin kamera, mikrofon, kontak, lokasi, SMS, penyimpanan, atau tulis galeri foto.</li>
 </ul>
 <p class="note">Saran: jangan biarkan terjemahan layar berjalan lama di halaman yang melibatkan pembayaran, dokumen identitas, atau privasi orang lain; jika Anda meninggalkan entri riwayat dan tangkapan layar di halaman seperti itu, keduanya disimpan di perangkat Anda. Gunakan fitur ini hanya pada layar yang benar-benar perlu Anda terjemahkan.</p>
@@ -142,7 +142,7 @@ Saat Anda menolak, Firebase tidak diinisialisasi, dan tidak satu byte pun data p
 <strong>Pihak ketiga mana pun yang tidak muncul di halaman ini tidak berjalan di Aplikasi</strong>, dan pembaruan daftar dikirim bersama versi aplikasi.</p>
 <ul>
   <li><strong>Google AdMob (Google Mobile Ads SDK)</strong>: menayangkan iklan dan memproses informasi perangkat dan jaringan serta pengenal periklanan (GAID) untuk pengiriman, deduplikasi, atribusi, dan anti-penipuan; dipersonalisasi saat Anda menerima, non-personalisasi saat Anda menolak, dan Anda dapat mengatur ulang atau menonaktifkan pengenal periklanan di pengaturan sistem. Lihat <a href="https://policies.google.com/technologies/ads">policies.google.com/technologies/ads</a> dan <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>;</li>
-  <li><strong>Google Firebase Analytics</strong>: diaktifkan hanya setelah Anda menyetujui; mengumpulkan peristiwa penggunaan dan kerusakan serta sebagian informasi perangkat untuk statistik ketersediaan fitur dan pemecahan masalah stabilitas; tidak diinisialisasi dan tidak mengunggah apa pun saat Anda menolak. Lihat <a href="https://firebase.google.com/support/privacy">firebase.google.com/support/privacy</a>;</li>
+  <li><strong>Google Firebase Analytics</strong>: infrastruktur analitik dan diagnosis kerusakan. SDK ini diinisialisasi saat Aplikasi diluncurkan dan secara otomatis mengumpulkan data operasional dasar (sesi, tampilan layar, versi Aplikasi, perangkat dan perkiraan wilayah, kerusakan); event penggunaan khusus Aplikasi hanya dikirim setelah Anda menyetujui. Lihat <a href="https://firebase.google.com/support/privacy">firebase.google.com/support/privacy</a>;</li>
   <li><strong>Google User Messaging Platform (UMP)</strong>: menampilkan antarmuka persetujuan yang patuh kepada pengguna EEA/Inggris serta mencatat dan meneruskan pilihan persetujuan Anda untuk dibaca AdMob dan Firebase; memproses informasi dasar perangkat dan aplikasi serta perkiraan wilayah. Lihat <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>;</li>
   <li><strong>Kerangka layanan Google (Google Play services)</strong>: menyediakan pengenal periklanan (GAID) dan saluran unduh sesuai-kebutuhan untuk paket bahasa ML Kit; Aplikasi membaca pengenal periklanan dan memperoleh kamus terjemahan melaluinya. Lihat <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>;</li>
   <li><strong>Google ML Kit (terjemahan)</strong>: melakukan terjemahan luring di perangkat Anda; unduhan model dijelaskan di 2.5;</li>
@@ -165,7 +165,7 @@ Saat Anda menolak, Firebase tidak diinisialisasi, dan tidak satu byte pun data p
 <ul>
   <li><strong>Pilihan persetujuan</strong>: terima atau tolak melalui kotak centang di layar terakhir panduan peluncuran pertama; pengguna EEA/Inggris dapat membuat dan mengubahnya kapan saja di antarmuka persetujuan Google (UMP);</li>
   <li><strong>Mematikan iklan yang dipersonalisasi</strong>: atur ulang atau nonaktifkan pengenal periklanan perangkat (GAID) di pengaturan sistem — Anda tetap akan melihat iklan, hanya tidak ditargetkan berdasarkan minat;</li>
-  <li><strong>Menghentikan analitik</strong>: tolak persetujuan, atau hapus data aplikasi lalu pilih "tidak setuju" lagi, untuk menonaktifkan pelaporan analitik;</li>
+  <li><strong>Menghentikan analitik</strong>: menolak persetujuan membuat event penggunaan khusus Aplikasi tidak lagi dilaporkan (Anda juga dapat menghapus data aplikasi lalu memilih "tidak setuju" lagi); data operasional dasar Firebase dikumpulkan oleh SDK tersebut sesuai perilaku bawaannya, dan untuk menghentikan seluruh pelaporan Anda dapat mencopot pemasangan Aplikasi;</li>
   <li><strong>Menghentikan pengambilan bingkai kapan saja</strong>: ketuk tombol kendali mengambang pada lapisan atas, atau hentikan dari indikator "sedang membagikan layar Anda" sistem;</li>
   <li><strong>Mencabut izin</strong>: matikan lapisan atas atau cabut otorisasi perekaman layar di pengaturan sistem, dan kemampuan terkait langsung tidak berlaku;</li>
   <li><strong>Menghapus data lokal</strong>: hapus entri satu per satu atau hapus seluruh riwayat dan tangkapan layar sekaligus di halaman "Riwayat terjemahan" (dengan konfirmasi kedua sebelum menghapus); mematikan "Simpan gambar asli" menghentikan penyimpanan tangkapan layar, dan menurunkan "Jumlah maksimum entri riwayat" langsung memangkas yang tersimpan;</li>
@@ -205,7 +205,7 @@ berjalan dengan model "gratis + iklan", dan memerlukan koneksi internet untuk me
 <h2>2. Jaringan dan iklan</h2>
 <ul>
   <li>Untuk tetap gratis, Aplikasi menampilkan iklan yang disediakan dan ditayangkan oleh Google AdMob;</li>
-  <li>Iklan ditampilkan baik Anda menerima personalisasi maupun tidak: menerima menayangkan iklan yang dipersonalisasi dan mengaktifkan analitik, sedangkan menolak hanya menayangkan iklan non-personalisasi dan menonaktifkan analitik. Lihat "Kebijakan Privasi" di halaman ini untuk cakupan informasi yang spesifik;</li>
+  <li>Iklan ditampilkan baik Anda menerima personalisasi maupun tidak: menerima menayangkan iklan yang dipersonalisasi dan melaporkan event penggunaan khusus Aplikasi, sedangkan menolak hanya menayangkan iklan non-personalisasi dan tidak melaporkan event khusus itu (data operasional dasar Firebase tetap dikumpulkan oleh SDK tersebut secara bawaan). Lihat "Kebijakan Privasi" di halaman ini untuk cakupan informasi yang spesifik;</li>
   <li>Memuat iklan memerlukan koneksi internet; menolak persetujuan tidak mematikan iklan dan tidak memengaruhi penggunaan Anda atas fitur terjemahan lokal;</li>
   <li>Konten, ketersediaan, dan ketentuan sendiri dari layanan iklan dan analitik pihak ketiga adalah tanggung jawab pihak ketiga tersebut; transaksi atau sengketa apa pun antara Anda dan mereka tidak berhubungan dengan Aplikasi;</li>
   <li>Jangan ketuk iklan yang menyesatkan untuk membayar atau mengunduh; Aplikasi tidak memiliki mekanisme buka-kunci berbayar seperti itu.</li>

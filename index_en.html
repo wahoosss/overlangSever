@@ -2,10 +2,10 @@
 <!--
   隐私政策 + 用户协议合并文书 · 英文版（站点根页面）：本目录发布到 https://site.overlang.xyz/（Play 商店填写的 URL，
   Google 定期抓取核验）；根路径给出的就是本件——index.html 与本件是同一份英文文书的两份拷贝，改一份必须同步另一份。
-  中文主源是同目录的 index_zh.html；app/src/main/assets/legal/agreement.html 是**中文的同版离线回落镜像**。
+  中文主源是同目录的 index_zh.html；app/src/main/assets/legal/agreement.html 是**离线回落镜像，内容与本件相同（唯一一份内置镜像就定稿为英文）**。
   LegalActivity 按当前界面语言取本目录的 index_<locale>.html（白名单 en/zh/ja/ko/es/fr/de/pt-BR/ru/it/id，见 DOCUMENT_FILE_TAGS）：
     英文界面直接用站点根路径（给出的就是本件）；语言件这一级出错（连接失败或 4xx/5xx）先退根路径，
-    仍失败（断网/DNS/5xx）才回落包内中文镜像。站点托管对未知路径返回 200 + 根页面（软 404），
+    仍失败（断网/DNS/5xx）才回落包内镜像——它就是本件的拷贝，所以离线状态下一律是英文。站点托管对未知路径返回 200 + 根页面（软 404），
     「这个语言还没翻」实际由服务器给出英文，客户端那两级是换托管也不塌的保险。
   ⚠ 同一文书有多份拷贝（中文主源 / 包内镜像 / 本英文件 / 其余 9 个语言件）：正文改动必须同打，不许漂移。
 
@@ -18,20 +18,27 @@
     本应用是「免费 + 广告」的联网软件，联网与广告、诊断上报按现在时陈述，第三方 SDK 公示制；
   - 同意机制（与目标代码一致，勿改口径）：首启引导末页展示本协议并给出**默认勾选框**，用户**主动点「开始使用」= 同意**，
     取消勾选 = 拒绝。**拒绝仍展示非个性化广告**（广告请求仍向 Google 传输设备/网络/广告标识用于投放与反作弊），
-    但**不启用统计**，全部本机功能照常可用。**欧洲经济区/英国用户**另经 Google 用户同意消息（UMP）单独选择，以该选择为准；
+    但**不上报本应用自定义使用事件**（⚠ Firebase Analytics 的 first_open / session_start / screen_view / 崩溃等**基础运行信息是 SDK 默认行为，随启动采集、不受该勾选门控**），全部本机功能照常可用。**欧洲经济区/英国用户**另经 Google 用户同意消息（UMP）单独选择，以该选择为准；
   - ✅ 已落实（2026-10，与代码一致）：
       ① 首启引导末页 + 默认勾选的「开始使用」同意框（GuideActivity，取消勾选 = 拒绝）；
-      ③ 统计条件出设备：`SdkBootstrap` 读 `privacyAgreed` 决定 `Analytics.init(consented=…)`，
-        App.onCreate 不再写死 consented=true；未同意时 libdata 一个字节不出设备；
-      ④ EEA/英国 UMP（ConsentGate）：进引导页即 prewarm 预请求同意信息，点「开始使用」且已同意才弹表单，
-        点击时仍未就绪按失败处理→保持非个性化；个性化只认 OBTAINED / NOT_REQUIRED（不用 canRequestAds 充数）；
-      ②的「拒绝→非个性化」分支：`Admob.npa = !(privacyAgreed && personalizedAllowed)` 已实现；
-      撤回/更改同意入口：协议页右上角（LegalActivity ivRight + ConsentGate.openPrivacyOptions，仅 privacyOptionsRequired 用户可见）。
-  - ⚠ 唯一剩余项：AdMob 仍是 Google 官方测试广告位（见 `res/values/strings.xml` 的 admob_app_id /
-    ad_unit_session_end_interstitial），且本目录 `app-ads.txt` 仍是示例发布商 id；提交前必须整体换成真实 id
+      ③ 同意状态驱动 SDK：`SdkBootstrap` 读 `privacyAgreed` 决定 `Analytics.init(consented=…)`，
+        App.onCreate 不再写死 consented=true；未同意时**本应用自定义使用事件**不出设备（⚠ 2026-11 口径更正：
+        Firebase Analytics 的 first_open / session_start / screen_view / 崩溃属 SDK 默认采集，不受该门控，正文按两层如实声明）；
+      ④ EEA/英国 UMP（libad 0.1.3 内置，宿主自建 ConsentGate 已删）：AdSdk.init 末尾自动读回持久化同意快照并同步各 adapter，
+        末页点「开始使用」且已同意才 AdSdk.requestConsent（幂等；需要时弹表单，等待封顶后按 NPA 放行，不阻塞进首页）；
+        个性化结论经 IABTCF 自动通道生效，宿主不再拿结果去刷配置（非个性化只认表单结论，不用 canRequestAds 充数）；
+      ②的「拒绝→非个性化」分支：非 UMP 地区由 `SdkBootstrap.applyPersonalizationGate` 按勾选框结论调
+        `AdSdk.setNonPersonalizedAds(!privacyAgreed)`；UMP 地区表单是权威，宿主不得用该开关覆盖表单选择；
+        `NetworkConfig.Admob.npa` 不再承载勾选框语义（0.1.3 起它只是运行时开关的初始值）；
+      撤回/更改同意入口：协议页右上角（LegalActivity ivRight + AdSdk.showPrivacyOptionsForm，
+        仅 `AdSdk.consentState().canReopenForm` 时可见，即法规要求同意且表单可重开的地区）。
+      ⚠ 自定义使用事件的上报/停止**仍只由引导页勾选框（privacyAgreed）门控**：libad 与 libdata 互不依赖（libdoc 口径），
+        UMP 表单结论只喂广告个性化，不翻转这些事件——正文「EEA 段/2.4」已改为「基础运行信息 + 自定义使用事件」两层口径。
+  - ⚠ 唯一剩余项：AdMob 仍是 Google 官方测试广告位（debug 写死在 `app/build.gradle.kts`，release 从 `local.properties` 的 `ads.app_id` / `ads.unit.session_end` 读取，未配则空串），
+    且本目录 `app-ads.txt` 仍是示例发布商 id；提交前必须整体换成真实 id
     （应用 id 与广告单元 id 两条一起换，见 store/05-compliance-blockers.md 的 B2 条）。
-    另：`google-services.json` 尚未放入（B3，发布决策点）——开发期「统计没落云端」是缺该文件时 `:libdata`
-    报 NO_FIREBASE_APP 的巧合，**不是已合规**，一旦放入就立即开始上传。
+    另：`app/google-services.json` **已放入**（Firebase 项目 overlang-fc97c，已入库），`:libdata` 会真实创建 Firebase 后端，
+    其基础运行信息按 SDK 默认行为上传——文书正文已按两层如实声明（2026-11），`store/04-data-safety.md` 的统计条与 B3 需按此核销。
     接入任何一个新的数据处理者时，先核对它的名称、收集范围与官方隐私链接是否与本文件「四」一致，再上线；
   - 备份口径与代码绑定：`AndroidManifest` 的 `allowBackup="false"` 决定「五·设备备份」与用户协议「五」的写法，
     改 allowBackup 必须同步改这两句；
@@ -109,7 +116,7 @@
 <p class="meta">Effective date: October 25, 2026 | Applies to: OverLang</p>
 
 <p>The App translates on-screen text in real time and paints it back in place; recognition and translation both happen on your device. It runs on a "free + ads" model, so it connects to the internet to load ads,
-and, with your consent, reports necessary usage statistics and crash information. The App is distributed via Google Play, and its privacy compliance follows the Google Play policies and the EU General Data Protection Regulation (GDPR).
+and integrates Google Firebase Analytics to collect usage statistics and crash information (its baseline operational data is recorded automatically by that SDK on app launch, while the App's own custom usage events are reported only after you consent). The App is distributed via Google Play, and its privacy compliance follows the Google Play policies and the EU General Data Protection Regulation (GDPR).
 Below is a quick overview first, then the details.</p>
 
 <div class="summary">
@@ -118,7 +125,7 @@ Below is a quick overview first, then the details.</p>
     <li>The screen content you share is read, recognized, translated, and painted on your device; <strong>it never leaves your device</strong>, processed frames are discarded immediately, and it is never used as a basis for ad targeting.</li>
     <li>Translation history and screenshots are stored in the App's private directory on your device; no other app or website can read them. You can delete them one by one or all at once, and uninstalling removes them.</li>
     <li>The App stays free by serving ads through Google AdMob; ads use information such as device, network, and advertising identifiers (GAID).</li>
-    <li>On first launch you can choose to accept or decline: <strong>Accept = personalized ads + analytics enabled; Decline = non-personalized ads only, analytics disabled. Either way, all on-device translation features keep working.</strong></li>
+    <li>On first launch you can choose to accept or decline: <strong>Accept = personalized ads + the App's custom usage events reported; Decline = non-personalized ads only, custom usage events not reported.</strong> In addition, Firebase Analytics, as the analytics infrastructure, automatically records baseline operational data such as sessions and screen views on app launch; that part is performed by Google's SDK by default and does not change with this checkbox. Either way, all on-device translation features keep working and your screen content never leaves your device.</li>
     <li>We do not collect your contacts, SMS, call logs, photos, or precise location, and we do not read passwords or payment details you type in other apps.</li>
     <li>Apart from the information needed for ads and analytics, the only other network activity is downloading offline models: translation language packs (Google) and OCR script models (developer mirror). The only thing sent is a request for "the model file for a given language".</li>
   </ul>
@@ -127,14 +134,14 @@ Below is a quick overview first, then the details.</p>
 <h2>1. How we obtain your consent</h2>
 <p>On first launch, the App shows this agreement on the last screen of the guide, with a confirmation box that is checked by default. Your consent is based on <strong>your active tap of "Get started"</strong>, not on the default state:</p>
 <ul>
-  <li><strong>Keep it checked and tap "Get started" = Accept</strong>: enables personalized ads and analytics (Google Firebase Analytics);</li>
-  <li><strong>Uncheck it, then tap "Get started" = Decline</strong>: analytics are disabled and your usage and crash data are not collected; to keep the App free, ads are still shown, but only non-personalized ones;</li>
+  <li><strong>Keep it checked and tap "Get started" = Accept</strong>: enables personalized ads and reports the App's own custom usage events (which button was tapped, whether a translation succeeded or failed, and stage-duration ranges);</li>
+  <li><strong>Uncheck it, then tap "Get started" = Decline</strong>: ads become non-personalized and the App's custom usage events are not reported; however, Firebase Analytics, as the analytics infrastructure, still automatically collects baseline operational data such as sessions and screen views on app launch, which is performed by Google's SDK by default and does not depend on this checkbox;</li>
   <li>Accepting or declining does not affect your use of the translation features; all on-device capabilities remain available.</li>
 </ul>
 <p class="note">About "non-personalized ads": when an ad is requested and shown, the ad SDK still transmits device, network, and advertising-identifier information to Google for delivery, frequency capping, attribution, and anti-fraud;
 this information is not used to build an interest profile or for personalized targeting. "Non-personalized" limits how ads are targeted, not whether data is sent at all.</p>
 <p>European Economic Area (EEA) and UK users: you will additionally see a standard consent interface provided by Google (User Messaging Platform, UMP). Your choice there takes precedence over the checkbox above
-and directly determines whether ads are personalized and whether analytics are enabled. You can withdraw or change that choice at any time: besides that consent interface and your system settings, the App's "Privacy Policy &amp; Terms of Use" page provides an entry at the top-right to reopen the privacy-options interface (shown only to users in regions where consent is legally required).</p>
+and directly determines whether ads are personalized and whether the App's custom usage events are reported (Firebase's baseline operational data is still collected by the SDK by default). You can withdraw or change that choice at any time: besides that consent interface and your system settings, the App's "Privacy Policy &amp; Terms of Use" page provides an entry at the top-right to reopen the privacy-options interface (shown only to users in regions where consent is legally required).</p>
 
 <h2>2. What information we collect and what it is used for</h2>
 
@@ -163,14 +170,14 @@ After you authorize screen recording: frames are read one by one → text is rec
 </ul>
 <p>When you accept, Google may use the above information for personalized targeting; when you decline, ads are served non-personalized (see Section 1). <strong>Ad content does not read your screen, recognition results, translations, or history.</strong></p>
 
-<h3>2.4 Information used for analytics and crash diagnosis (collected only after you accept)</h3>
-<p>Only after you make an accepting choice per Section 1 (for EEA/UK users, consenting to analytics in UMP) does the App enable Google Firebase Analytics and collect:</p>
+<h3>2.4 Information used for analytics and crash diagnosis</h3>
+<p>The App integrates Google Firebase Analytics. It collects in two layers:</p>
 <ul>
-  <li>Usage information: feature tap counts, whether a translation succeeded or failed (result codes), and the duration ranges of the recognition and translation stages, as events;</li>
-  <li>Diagnostic information: crash stacks and where they occurred, for stability troubleshooting.</li>
+  <li><strong>Baseline operational data (collected automatically by the SDK on app launch, not contingent on your consent)</strong>: app install and version, session duration, screen views, device model and OS version, language and approximate region, and crash information;</li>
+  <li><strong>Custom usage events (reported only after you consent)</strong>: feature tap counts, whether a translation succeeded or failed (result codes), and the duration ranges of the recognition and translation stages.</li>
 </ul>
 <p>The reported usage information contains only behavioral values such as "which button was tapped" and "whether this translation succeeded"; <strong>it does not contain the screen content you shared, the recognized original text, translations, history fields, screenshots, or text position coordinates</strong>.
-When you decline, Firebase is not initialized, and not a single byte of the above usage or crash data leaves your device.</p>
+When you decline, the App stops reporting custom usage events, but Firebase's baseline operational data is still collected by that SDK per its default behavior; to stop all reporting entirely, uninstall the App.</p>
 
 <h3>2.5 Download requests used to obtain language models</h3>
 <ul>
@@ -183,7 +190,7 @@ When you decline, Firebase is not initialized, and not a single byte of the abov
   <li>Identity information: name, phone number, email, address — we neither request nor collect these (the App has no account system and requires no sign-up or login);</li>
   <li>Sensitive data: contacts, SMS, call logs, photos, and precise or approximate location — the App does not request these permissions and does not read them; passwords and payment details you type in other apps are not recognized, recorded, or uploaded by the App;</li>
   <li>Device identifiers: the App itself does not request IMEI, Android ID, or other identifiers used for profiling; the advertising identifier (GAID) is used only by the ad SDK for delivery and attribution, and you can reset or disable it in system settings;</li>
-  <li>When you have not consented: no usage statistics or crash logs leave your device.</li>
+  <li>Under no circumstances do we collect: your screen content, the recognized original text, translations, history, or screenshots, nor are any of these ever sent to any server or used for ad targeting.</li>
 </ul>
 
 <h2>3. Permissions we request and why, and what they will not do</h2>
@@ -191,7 +198,7 @@ When you decline, Firebase is not initialized, and not a single byte of the abov
   <li><strong>Screen recording (MediaProjection)</strong>: reads the screen content you actively choose to share, to recognize text. Each start requires you to confirm in a system dialog; during the sharing session the system shows a persistent "sharing your screen" indicator, from which you can stop at any time;</li>
   <li><strong>Display over other apps (overlay)</strong>: paints the translation in place over the original text and hosts the start / stop control buttons;</li>
   <li><strong>Foreground service</strong>: keeps translation running when you switch to other apps. This capability requires a persistent notification as its credential, but the App <strong>does not request the notification-display permission</strong>: on Android 13 and above, if you have not allowed the App to show notifications, this notification will not appear, and translation is unaffected — you can then tell it is running, and stop it, from the system's "sharing your screen" indicator and the on-screen floating control button;</li>
-  <li><strong>Network access and network state</strong>: used to load ads, to report usage statistics after you consent, and to download the language packs and recognition models described in 2.5, and to tell you "whether there is no network or the connection is restricted" when a download fails;</li>
+  <li><strong>Network access and network state</strong>: used to load ads, to report usage statistics and crash information (baseline operational data is collected automatically by Firebase on launch, while the App's custom usage events are reported after you consent), and to download the language packs and recognition models described in 2.5, and to tell you "whether there is no network or the connection is restricted" when a download fails;</li>
   <li>The App <strong>does not request</strong> camera, microphone, contacts, location, SMS, storage, or photo-gallery write permissions.</li>
 </ul>
 <p class="note">Recommendation: do not keep screen translation running for a long time on pages involving payments, ID documents, or others' privacy; if you leave history entries and screenshots on such pages, they are stored on your device. Please use this feature only on screens you genuinely need translated.</p>
@@ -201,7 +208,7 @@ When you decline, Firebase is not initialized, and not a single byte of the abov
 <strong>Any third party not listed on this page does not run in the App</strong>, and list updates ship with app versions.</p>
 <ul>
   <li><strong>Google AdMob (Google Mobile Ads SDK)</strong>: serves ads and processes device and network information and the advertising identifier (GAID) for delivery, de-duplication, attribution, and anti-fraud; personalized when you accept, non-personalized when you decline, and you can reset or disable the advertising identifier in system settings. See <a href="https://policies.google.com/technologies/ads">policies.google.com/technologies/ads</a> and <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>;</li>
-  <li><strong>Google Firebase Analytics</strong>: enabled only after you consent; collects usage and crash events and some device information for feature-availability statistics and stability troubleshooting; not initialized and nothing uploaded when you decline. See <a href="https://firebase.google.com/support/privacy">firebase.google.com/support/privacy</a>;</li>
+  <li><strong>Google Firebase Analytics</strong>: the analytics and crash infrastructure. It initializes on app launch and automatically collects baseline operational data (sessions, screen views, app version, device and approximate region, crashes); the App's own custom usage events are sent only after you consent. See <a href="https://firebase.google.com/support/privacy">firebase.google.com/support/privacy</a>;</li>
   <li><strong>Google User Messaging Platform (UMP)</strong>: shows a compliant consent interface to EEA/UK users and records and passes your consent choice for AdMob and Firebase to read; processes basic device and app information and approximate region. See <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>;</li>
   <li><strong>Google services framework (Google Play services)</strong>: provides the advertising identifier (GAID) and the on-demand download channel for ML Kit language packs; the App reads the advertising identifier and obtains translation dictionaries through it. See <a href="https://policies.google.com/privacy">policies.google.com/privacy</a>;</li>
   <li><strong>Google ML Kit (translation)</strong>: performs offline translation on your device; model downloads are described in 2.5;</li>
@@ -224,7 +231,7 @@ When you decline, Firebase is not initialized, and not a single byte of the abov
 <ul>
   <li><strong>Consent choice</strong>: accept or decline via the checkbox on the last screen of the first-launch guide; EEA/UK users can make and change this at any time in the Google consent interface (UMP);</li>
   <li><strong>Turn off personalized ads</strong>: reset or disable the device advertising identifier (GAID) in system settings — you will still see ads, just not targeted by interest;</li>
-  <li><strong>Stop analytics</strong>: decline consent, or clear app data and then choose "do not agree" again, to disable analytics reporting;</li>
+  <li><strong>Stop analytics</strong>: declining consent stops the App's custom usage events from being reported (you can also clear app data and choose "do not agree" again); Firebase's baseline operational data is collected by that SDK per its default behavior, and to stop all reporting entirely you can uninstall the App;</li>
   <li><strong>Stop frame capture at any time</strong>: tap the floating control button on the overlay, or stop from the system's "sharing your screen" indicator;</li>
   <li><strong>Revoke permissions</strong>: turn off the overlay or revoke screen-recording authorization in system settings, and the corresponding capabilities stop immediately;</li>
   <li><strong>Delete on-device data</strong>: delete individual entries or clear all history and screenshots at once on the "Translation history" page (with a second confirmation before clearing); turning off "Save original image" stops keeping screenshots, and lowering "Max history entries" immediately trims what is stored;</li>
@@ -264,7 +271,7 @@ runs on a "free + ads" model, and requires an internet connection to provide the
 <h2>2. Network and ads</h2>
 <ul>
   <li>To stay free, the App shows ads provided and served by Google AdMob;</li>
-  <li>Ads are shown whether or not you accept personalization: accepting serves personalized ads and enables analytics, while declining serves only non-personalized ads and disables analytics. See the "Privacy Policy" on this page for the specific information scope;</li>
+  <li>Ads are shown whether or not you accept personalization: accepting serves personalized ads and reports the App's custom usage events, while declining serves only non-personalized ads and does not report those custom events (Firebase's baseline operational data is still collected by that SDK by default). See the "Privacy Policy" on this page for the specific information scope;</li>
   <li>Loading ads requires an internet connection; declining consent does not turn off ads and does not affect your use of the on-device translation features;</li>
   <li>The content, availability, and own terms of third-party ads and analytics services are the responsibility of that third party; any transaction or dispute between you and them is unrelated to the App;</li>
   <li>Do not tap misleading ads to pay or download; the App has no such paid-unlock mechanism.</li>
