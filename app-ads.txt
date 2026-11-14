@@ -5,4 +5,5 @@
 #    pub-0000000000000000 是 Google 的示例/测试值，Play 审核与真实变现都不认。
 # 若还接入了其它广告网络（如 Meta/AppLovin 等），按各自规范再各加一行，格式：
 #    <域名>, <publisher-id>, <DIRECT|RESELLER>[, <认证机构id>]
-google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+
+google.com, pub-4518014637652505, DIRECT, f08c47fec0942fa0
